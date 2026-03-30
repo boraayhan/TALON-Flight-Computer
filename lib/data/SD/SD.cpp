@@ -1,5 +1,9 @@
 #include "data/SD/SD.h"
 
-void OnboardSD::init() {}
-void OnboardSD::write(const std::string &filename, const std::string &data) {}
-std::string OnboardSD::read(const std::string &filename) { return ""; }
+SD::SD() {}
+
+std::vector<Runway> SD::getRunways() {
+    std::vector<Runway> runways;
+    // Read from SD card json (file: config/Runways.json), parse into runways
+    return runways;
+}

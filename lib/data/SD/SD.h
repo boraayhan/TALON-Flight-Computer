@@ -1,9 +1,12 @@
 #pragma once
+#include "data/data_structures/DataStructuresHeader.h"
 #include <string>
+#include <vector>
 
-class OnboardSD {
+// WARNING: NOT FINISHED!
+class SD {
   public:
-    static void init();
-    static void write(const std::string& filename, const std::string& data);
-    static std::string read(const std::string& filename);
+    SD(); // Maybe intake some parameters, idk, that's a problem for later me
+    std::vector<Runway> getRunways();
+
 };
