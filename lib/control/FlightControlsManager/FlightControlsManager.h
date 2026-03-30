@@ -1,7 +1,12 @@
+#pragma once
+
 #include "control/ControlSurface/ControlSurface.h"
-#include "global/global_header.h"
+#include "global/GlobalHeader.h"
 
 class FlightControlsManager {
+  public:
+    void twoAxisJoystickToPitchRoll(double xAxis, double yAxis);
+    void setThrottle(double throttle);
   private:
 };
 
@@ -13,6 +18,4 @@ enum ControlSurfaces {
     num_surface
 };
 
-ControlSurface surfaces[num_surface] = {
-    
-};
+ControlSurface surfaces[num_surface] = {};

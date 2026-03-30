@@ -1,6 +1,6 @@
 #pragma once
 
-static enum LANDING_GEAR_STATE {
+enum LANDING_GEAR_STATE {
     RETRACTED = 0,
     DEPLOYED = 1
 };
@@ -15,4 +15,5 @@ public:
     bool isDeployed();
 private:
     bool deployed;
+    int GPIO_PIN;
 };
