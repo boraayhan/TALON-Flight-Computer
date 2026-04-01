@@ -1,9 +1,20 @@
+#include <string>
 #pragma once
+
+enum ControlSurfaceType {
+    AILERON,  // Controls roll axis
+    ELEVATOR, // Controls pitch axis
+    RUDDER,   // Controls yaw axis
+    FLAP,     // Increases lift
+    AIRBRAKE, // Creates drag
+};
 
 class ControlSurface {
   private:
     // Servo servo;
     int GPIO_PIN;
+    ControlSurfaceType type; // Aileron, Elevator, or Rudder
+    std::string name;        // Ex: Aileron 2, Right Elevator, etc
     double angleZeroDegrees;
     double angleTrimOffsetDegrees;
     double angleServoMinDegrees;

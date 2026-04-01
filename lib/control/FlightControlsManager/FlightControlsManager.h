@@ -5,17 +5,12 @@
 
 class FlightControlsManager {
   public:
+    FlightControlsManager();
     void twoAxisJoystickToPitchRoll(double xAxis, double yAxis);
     void setThrottle(double throttle);
+    void addControlSurface(ControlSurface surface);
+    void deployFlaps(double flapsPositionDegrees);
+    void deployAirbrakes(double airbrakesPositionDegrees);
   private:
+    std::vector<ControlSurface> controlSurfaces;
 };
-
-enum ControlSurfaces {
-    AILERON_LEFT = 0,
-    AILERON_RIGHT,
-    ELEVATOR_LEFT,
-    ELEVATOR_RIGHT,
-    num_surface
-};
-
-ControlSurface surfaces[num_surface] = {};
