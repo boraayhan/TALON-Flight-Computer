@@ -1,7 +1,6 @@
 #include "data/data_structures/CirclePoint/CirclePoint.h"
 
-CirclePoint::CirclePoint(Vector3 position, double radius)
-{
+CirclePoint::CirclePoint(Vector3 position, double radius) {
     this->position = position;
     this->radius = radius;
 }

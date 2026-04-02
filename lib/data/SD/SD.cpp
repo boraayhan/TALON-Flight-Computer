@@ -11,5 +11,5 @@ std::vector<Runway> SD::getRunways() {
 }
 
 void SD::writeJSONEntry(std::string jsonData) {
-    // 
+    //
 }

@@ -19,8 +19,8 @@ double pid::compute(double input, double target) {
         derivative = (error - prevError) / dt;
     }
     integral += error * dt;
-    // integral += constrain(error * dt, SOME MIN VALUE, SOME MAX VALUE); // prevents integral
-    // windup
+    // integral += constrain(error * dt, SOME MIN VALUE, SOME MAX
+    // VALUE); // prevents integral windup
     prevError = error;
     prevTime = now;
     return kP * error + kI * integral + kD * derivative;
