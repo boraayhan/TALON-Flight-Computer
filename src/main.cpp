@@ -1,6 +1,4 @@
-#include "global/GlobalHeader.h"
-#include "lib/control/Autopilot/Autopilot.h"
-#include "lib/control/FlightControlsManager/FlightControlsManager.h"
+#include "src/main.h"
 
 FlightControlsManager flightControlsManager;
 
