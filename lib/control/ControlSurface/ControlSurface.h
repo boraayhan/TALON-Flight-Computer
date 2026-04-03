@@ -5,7 +5,7 @@ enum ControlSurfaceType {
     AILERON, // Controls roll axis, such that a (+k * DIRECTION_MULTIPLIER) command results in CW roll about velocity vector
     ELEVATOR, // Controls pitch axis
     RUDDER,   // Controls yaw axis
-    FLAP,     // Increases lift, such that a (+k * DIRECTION_MULTIPLIER) command results in great
+    FLAP, // Increases lift, such that a (+k * DIRECTION_MULTIPLIER) command results in great
     AIRBRAKE, // Creates drag
 };
 
@@ -28,12 +28,9 @@ class ControlSurface {
         std::string name,        // Nickname for debugging, ie "Aileron Left"
         ControlSurfaceType type, // Type of surface (see ControlSurfaceTyp)
         double angleZeroDegrees, // Zero angle for moment == 0
-        double angleServoMinDegrees, // Minimum angle for the servo (not surface
-                                     // itself)
-        double angleServoMaxDegrees, // Maximum angle for the servo (not surface
-                                     // itself)
-        int DIRECTION_MULTIPLIER);   // +1 or -1 to correct for rotational
-                                     // symmetry. See ControlSurface
+        double angleServoMinDegrees, // Minimum angle for the servo (not surface itself)
+        double angleServoMaxDegrees, // Maximum angle for the servo (not surface itself)
+        int DIRECTION_MULTIPLIER);   // +1 or -1 to correct for rotational symmetry. See "lib/control/FlightControlsManager" for conventions
 
     void test(); // Drives surface through its range of motion
     void move(

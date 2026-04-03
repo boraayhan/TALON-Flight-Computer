@@ -19,4 +19,10 @@ void FlightControlsManager::deployFlaps(double flapsPositionDegrees) {
     }
 }
 
-void FlightControlsManager::deployAirbrakes(double airbrakesPositionDegrees) {}
+void FlightControlsManager::deployAirbrakes(double airbrakesPositionDegrees) {
+    for(ControlSurface surface : controlSurfaces) {
+        if (surface.getType() == AIRBRAKE) {
+            surface.move(airbrakesPositionDegrees);
+        }
+    }
+}
