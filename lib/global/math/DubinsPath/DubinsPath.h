@@ -19,7 +19,7 @@ class DubinsPath {
     Vector3 endPoint;
     Vector3 initVelocity;
     double timeDelay;
-    
+
     DubinsPath(Vector3 i, Vector3 f, Vector3 v, double tr);
     DubinsPath(Vector3 i, Vector3 f, Vector3 v, double tr, double delay);
 };
