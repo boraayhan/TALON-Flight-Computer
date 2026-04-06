@@ -3,7 +3,8 @@
 FlightControlsManager flightControlsManager;
 
 int main() {
-    ControlSurface aileronLeft(0,
+    // clang-format off
+ControlSurface aileronLeft(0,
                                "Aileron Left",
                                AILERON,
                                0,
@@ -42,6 +43,7 @@ int main() {
                           RUDDER_SERVO_POS_MIN_DEG,
                           RUDDER_SERVO_POS_MAX_DEG,
                           1);
+    // clang-format on
 
     flightControlsManager.addControlSurface(aileronLeft)
         .addControlSurface(aileronRight)

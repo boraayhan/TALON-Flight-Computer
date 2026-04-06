@@ -7,3 +7,4 @@
 #include "global/math/Vector/Vector.h"
 #include <string>
 #include <vector>
+#include <cstdint>

@@ -1,6 +1,6 @@
 #pragma once
 
-enum LANDING_GEAR_STATE {
+enum LandingGearState {
     RETRACTED = 0,
     DEPLOYED = 1
 };

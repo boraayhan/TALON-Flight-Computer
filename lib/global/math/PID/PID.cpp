@@ -1,6 +1,9 @@
 #include "global/math/PID/PID.h"
 
 // WARNING: NOT FINISHED!
+pid::pid() : kP(0), kI(0), kD(0), error(0), now(0), prevError(0), prevTime(0), integral(0), derivative(0) {}
+
+// WARNING: NOT FINISHED!
 pid::pid(double KP, double KI, double KD) {
     kP = KP;
     kI = KI;

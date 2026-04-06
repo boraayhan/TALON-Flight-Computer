@@ -5,6 +5,7 @@ class pid
 {
 public:
     double compute(double input, double target);
+    pid();
     pid(double KP, double KI, double KD);
 
 private:
