@@ -13,13 +13,13 @@ enum DubinsPathType {
 
 // WARNING: NOT FINISHED!
 class DubinsPath {
-    double turningRadius;
+    float turningRadius;
     DubinsPathType type;
     Vector3 startPoint; // Start of Dubins path, accounts for delay
     Vector3 endPoint;
     Vector3 initVelocity;
-    double timeDelay;
+    float timeDelay;
 
-    DubinsPath(Vector3 i, Vector3 f, Vector3 v, double tr);
-    DubinsPath(Vector3 i, Vector3 f, Vector3 v, double tr, double delay);
+    DubinsPath(Vector3 i, Vector3 f, Vector3 v, float tr);
+    DubinsPath(Vector3 i, Vector3 f, Vector3 v, float tr, float delay);
 };

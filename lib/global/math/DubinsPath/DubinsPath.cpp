@@ -1,7 +1,7 @@
 #include "global/math/DubinsPath/DubinsPath.h"
 
 // WARNING: NOT FINISHED!
-DubinsPath::DubinsPath(Vector3 i, Vector3 f, Vector3 v, double tr) {
+DubinsPath::DubinsPath(Vector3 i, Vector3 f, Vector3 v, float tr) {
     this->startPoint = i;
     this->endPoint = f;
     this->initVelocity = v;
@@ -10,7 +10,7 @@ DubinsPath::DubinsPath(Vector3 i, Vector3 f, Vector3 v, double tr) {
 }
 
 // WARNING: NOT FINISHED!
-DubinsPath::DubinsPath(Vector3 i, Vector3 f, Vector3 v, double tr, double delay) {
+DubinsPath::DubinsPath(Vector3 i, Vector3 f, Vector3 v, float tr, float delay) {
     this->startPoint = i + v * delay; //TODO: Pass along pointer to v and reevaluate startpoint
     this->endPoint = f;
     this->initVelocity = v;

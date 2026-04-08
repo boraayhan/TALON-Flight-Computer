@@ -11,7 +11,6 @@ void CommunicationManager::periodic()
 
     CommType payloadType = std::visit([](const auto &message)
                                       { return message.type; }, payload);
-
     switch (payloadType)
     {
     case CommType::JoystickInput:

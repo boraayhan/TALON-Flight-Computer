@@ -4,18 +4,18 @@
 class pid
 {
 public:
-    double compute(double input, double target);
+    float compute(float input, float target);
     pid();
-    pid(double KP, double KI, double KD);
+    pid(float KP, float KI, float KD);
 
 private:
-    double kP;
-    double kI;
-    double kD;
-    double error;
+    float kP;
+    float kI;
+    float kD;
+    float error;
     unsigned long now;
-    double prevError;
-    double prevTime;
-    double integral;
-    double derivative;
+    float prevError;
+    float prevTime;
+    float integral;
+    float derivative;
 };

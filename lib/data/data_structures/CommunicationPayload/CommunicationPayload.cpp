@@ -1,17 +1,17 @@
 #include "data/data_structures/CommunicationPayload/CommunicationPayload.h"
 
-JoystickInput::JoystickInput(double xA, double yA) {
+JoystickInput::JoystickInput(float xA, float yA) {
   this->type = CommType::JoystickInput;
   this->xAxis = xA;
   this->yAxis = yA;
 }
 
-ThrottleInput::ThrottleInput(double throttle) {
+ThrottleInput::ThrottleInput(float throttle) {
   this->type = CommType::ThrottleInput;
   this->throttle = throttle;
 }
 
-FlapInput::FlapInput(double flap) {
+FlapInput::FlapInput(float flap) {
   this->type = CommType::FlapInput;
   this->flapAngleDegrees = flap;
 }

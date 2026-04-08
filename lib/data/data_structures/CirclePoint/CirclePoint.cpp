@@ -1,15 +1,17 @@
 #include "data/data_structures/CirclePoint/CirclePoint.h"
 
-CirclePoint::CirclePoint(Vector3 position, double radius) {
+CirclePoint::CirclePoint(Vector3 position, float radius)
+{
     this->position = position;
     this->radius = radius;
 }
 
-double CirclePoint::getRadius() { return this->radius; }
+float CirclePoint::getRadius() const { return this->radius; }
 
-Vector3 CirclePoint::getPosition() { return this->position; }
+Vector3 CirclePoint::getPosition() const { return this->position; }
 
-std::string CirclePoint::toJSON() {
+std::string CirclePoint::toJSON() const
+{
     return "{\"position\": {\"x\": " + std::to_string(this->position.x) +
            ", \"y\": " + std::to_string(this->position.y) +
            ", \"z\": " + std::to_string(this->position.z) +

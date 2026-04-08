@@ -11,7 +11,7 @@ Runway::Runway(std::string name,
 
 Runway::Runway(std::string name,
                const Vector3 &startPositionMeters,
-               double distanceMeters,
+               float distanceMeters,
                const Vector3 &direction) {
     this->name = name;
     this->startPositionMeters = startPositionMeters;
@@ -26,7 +26,7 @@ Vector3 Runway::getEndPointMeters() { return this->endPositionMeters; }
 
 Vector3 Runway::getDirection() { return this->direction; }
 
-double Runway::getLengthMeters() { return this->lengthMeters; }
+float Runway::getLengthMeters() { return this->lengthMeters; }
 
 std::string Runway::toJSON() {
     return "{\"name\": \"" + this->name +

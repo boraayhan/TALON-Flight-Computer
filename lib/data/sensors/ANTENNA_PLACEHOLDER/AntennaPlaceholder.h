@@ -5,6 +5,7 @@
 class AntennaPlaceholder {
 public:
   AntennaPlaceholder();
+  void init();
   void AntennaPeriodic(); // Read and parse inputs
   CommunicationVariant get();
   void transmit(CommunicationVariant& payload);

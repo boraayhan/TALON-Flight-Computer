@@ -6,9 +6,9 @@ ControlSurface::ControlSurface() {}
 ControlSurface::ControlSurface(int GPIO_PIN,
                                std::string name,
                                ControlSurfaceType type,
-                               double angleZeroDegrees,
-                               double angleServoMinDegrees,
-                               double angleServoMaxDegrees,
+                               float angleZeroDegrees,
+                               float angleServoMinDegrees,
+                               float angleServoMaxDegrees,
                                int DIRECTION_MULTIPLIER) {
     this->GPIO_PIN = GPIO_PIN;
     this->angleZeroDegrees = angleZeroDegrees;
@@ -22,8 +22,12 @@ ControlSurface::ControlSurface(int GPIO_PIN,
 
 void ControlSurface::test() {}
 
-void ControlSurface::move(double angle) {}
+void ControlSurface::move(float angle) {}
 
-void ControlSurface::changeTrim(double angle) {}
+int ControlSurface::getDirectionMultiplier() const {
+    return this->DIRECTION_MULTIPLIER;
+}
+
+void ControlSurface::changeTrim(float angle) {}
 
 ControlSurfaceType ControlSurface::getType() const { return this->type; }
