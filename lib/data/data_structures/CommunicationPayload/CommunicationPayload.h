@@ -5,13 +5,13 @@
 
 #pragma once
 #include "global/GlobalHeader.h"
+#include <variant>
 
-enum CommType {
+enum class CommType {
     JoystickInput = 0,
     ThrottleInput,
     FlapInput,
-
-
+    JSONWrite,
 };
 
 struct CommunicationPayload {
@@ -19,7 +19,10 @@ struct CommunicationPayload {
 };
 
 struct JoystickInput : CommunicationPayload {
-    JoystickInput(double xA, double yA);
+    JoystickInput(double xA, 
+        
+        double yA);
+    
     double xAxis; // -1.0 to 1.0, such that +1 is right
     double yAxis; // -1.0 to 1.0, such that +1 is forward
 };
@@ -31,5 +34,13 @@ struct ThrottleInput : CommunicationPayload {
 
 struct FlapInput : CommunicationPayload {
     FlapInput(double flap);
-    double flapAngleDegrees; // Representing flap angle in degrees, where 0 degrees is neutral and positive is deployed
+    double flapAngleDegrees; // Flap angle in degrees, such that 0 degrees is neutral and positive is deployed
 };
+
+struct JSONWrite : CommunicationPayload {
+    JSONWrite(const std::string json, std::string path);
+    std::string json;
+    std::string path;
+};
+
+extern std::variant<> CommunicationVariant;
