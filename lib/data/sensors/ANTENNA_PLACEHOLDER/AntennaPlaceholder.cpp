@@ -2,12 +2,11 @@
 
 AntennaPlaceholder::AntennaPlaceholder() {}
 
-CommunicationPayload AntennaPlaceholder::get() {
-    CommunicationPayload payload;
-    // payload = (rf24.read()), basically parse incoming 
-    return payload;
+CommunicationVariant AntennaPlaceholder::get() {
+    // payload = (rf24.read()), basically parse incoming
+    return JoystickInput(0.0, 0.0);
 }
 
-void AntennaPlaceholder::transmit(CommunicationPayload& payload) {
+void AntennaPlaceholder::transmit(CommunicationVariant& payload) {
     // rf24.write(&payload, sizeof(payload));
 }

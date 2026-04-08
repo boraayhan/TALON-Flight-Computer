@@ -2,20 +2,20 @@
 
 // WARNING: NOT FINISHED!
 DubinsPath::DubinsPath(Vector3 i, Vector3 f, Vector3 v, double tr) {
-    startPoint = i;
-    endPoint = f;
-    initVelocity = v;
-    turningRadius = tr;
-    timeDelay = 0.0;
+    this->startPoint = i;
+    this->endPoint = f;
+    this->initVelocity = v;
+    this->turningRadius = tr;
+    this->timeDelay = 0.0;
 }
 
 // WARNING: NOT FINISHED!
 DubinsPath::DubinsPath(Vector3 i, Vector3 f, Vector3 v, double tr, double delay) {
-    startPoint = i + v * delay; //TODO: Pass along pointer to v and reevaluate startpoint
-    endPoint = f;
-    initVelocity = v;
-    turningRadius = tr;
-    timeDelay = delay;
+    this->startPoint = i + v * delay; //TODO: Pass along pointer to v and reevaluate startpoint
+    this->endPoint = f;
+    this->initVelocity = v;
+    this->turningRadius = tr;
+    this->timeDelay = delay;
     Vector3 pL;
     Vector3 pS;
 }

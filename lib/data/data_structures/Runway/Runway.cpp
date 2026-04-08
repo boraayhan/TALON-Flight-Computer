@@ -20,22 +20,22 @@ Runway::Runway(std::string name,
     this->lengthMeters = distanceMeters;
 }
 
-Vector3 Runway::getStartPointMeters() { return startPositionMeters; }
+Vector3 Runway::getStartPointMeters() { return this->startPositionMeters; }
 
-Vector3 Runway::getEndPointMeters() { return endPositionMeters; }
+Vector3 Runway::getEndPointMeters() { return this->endPositionMeters; }
 
-Vector3 Runway::getDirection() { return direction; }
+Vector3 Runway::getDirection() { return this->direction; }
 
-double Runway::getLengthMeters() { return lengthMeters; }
+double Runway::getLengthMeters() { return this->lengthMeters; }
 
 std::string Runway::toJSON() {
     return "{\"name\": \"" + this->name +
-           "\", \"startPosition\": {\"x\": " + std::to_string(startPositionMeters.x) +
-           ", \"y\": " + std::to_string(startPositionMeters.y) +
-           ", \"z\": " + std::to_string(startPositionMeters.z) +
-           "}, \"endPosition\": {\"x\": " + std::to_string(endPositionMeters.x) +
-           ", \"y\": " + std::to_string(endPositionMeters.y) +
-           ", \"z\": " + std::to_string(endPositionMeters.z) + "}}";
+           "\", \"startPosition\": {\"x\": " + std::to_string(this->startPositionMeters.x) +
+           ", \"y\": " + std::to_string(this->startPositionMeters.y) +
+           ", \"z\": " + std::to_string(this->startPositionMeters.z) +
+           "}, \"endPosition\": {\"x\": " + std::to_string(this->endPositionMeters.x) +
+           ", \"y\": " + std::to_string(this->endPositionMeters.y) +
+           ", \"z\": " + std::to_string(this->endPositionMeters.z) + "}}";
 }
 
-std::string Runway::getName() { return name; }
+std::string Runway::getName() { return this->name; }

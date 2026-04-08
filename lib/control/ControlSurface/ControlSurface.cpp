@@ -26,4 +26,4 @@ void ControlSurface::move(double angle) {}
 
 void ControlSurface::changeTrim(double angle) {}
 
-ControlSurfaceType ControlSurface::getType() const { return type; }
+ControlSurfaceType ControlSurface::getType() const { return this->type; }

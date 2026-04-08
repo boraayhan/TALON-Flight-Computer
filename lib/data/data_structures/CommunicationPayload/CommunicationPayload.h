@@ -43,4 +43,4 @@ struct JSONWrite : CommunicationPayload {
     std::string path;
 };
 
-extern std::variant<> CommunicationVariant;
+using CommunicationVariant = std::variant<JoystickInput, ThrottleInput, FlapInput, JSONWrite>;

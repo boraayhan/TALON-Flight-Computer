@@ -3,7 +3,8 @@
 #include "data/data_structures/CommunicationPayload/CommunicationPayload.h"
 
 class AntennaPlaceholder {
-public: AntennaPlaceholder();
+public:
+  AntennaPlaceholder();
   void AntennaPeriodic(); // Read and parse inputs
   CommunicationVariant get();
   void transmit(CommunicationVariant& payload);
