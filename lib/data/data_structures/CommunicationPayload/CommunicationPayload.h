@@ -13,6 +13,7 @@ enum class CommType
     ThrottleInput,
     FlapInput,
     JSONWrite,
+    YawInput,
 };
 
 struct CommunicationPayload
@@ -47,4 +48,9 @@ struct JSONWrite : CommunicationPayload
     std::string path;
 };
 
-using CommunicationVariant = std::variant<JoystickInput, ThrottleInput, FlapInput, JSONWrite>;
+struct YawInput : CommunicationPayload {
+    YawInput(float zA);
+    float zAxis;
+};
+
+using CommunicationVariant = std::variant<JoystickInput, ThrottleInput, FlapInput, JSONWrite, YawInput>;

@@ -6,12 +6,14 @@ void FlightControlsManager::init()
 {
     this->rollPID = pid(1.0, 0.0, 0.0);  // FIXME: Tune!
     this->pitchPID = pid(1.0, 0.0, 0.0); // FIXME: Tune!
+    this->yawPID = pid(1.0, 0.0, 0.0);   // FIXME: Tune!
 }
 
 void FlightControlsManager::twoAxisJoystickToPitchRoll(float xAxis, float yAxis)
 {
     if (xAxis > 1 || yAxis > 1)
     {
+        // Insert debug statement here
         return;
     }
     for (ControlSurface &surface : this->controlSurfaces)
@@ -47,6 +49,7 @@ void FlightControlsManager::rudderPedalToYaw(float zAxis)
 
     if (zAxis > 1)
     {
+        // Insert debug statement here
         return;
     }
     for (ControlSurface &surface : this->controlSurfaces)

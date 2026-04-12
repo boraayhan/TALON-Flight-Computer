@@ -21,3 +21,7 @@ JSONWrite::JSONWrite(const std::string json, std::string path) {
   this->json = json;
   this->path = path;
 }
+
+YawInput::YawInput(float zA) {
+  this->zAxis = zA;
+}

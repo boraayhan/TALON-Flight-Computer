@@ -14,9 +14,8 @@ public:
   void rudderPedalToYaw(float zAxis);
   void setThrottle(float throttle);
   FlightControlsManager addControlSurface(
-      ControlSurface surface); // Returns original object to allow daisy chaining .add()'s
-  FlightControlsManager
-  addLandingGear(LandingGear gear); // Returns original object to allow daisy chaining .add()'s
+      ControlSurface surface);                            // Returns original object to allow daisy chaining .add()'s
+  FlightControlsManager addLandingGear(LandingGear gear); // Returns original object to allow daisy chaining .add()'s
   void deployFlaps(float flapsPositionDegrees);
   // void deployAirbrakes(float airbrakesPositionDegrees); <--- Implement later
   void setLandingGear(LandingGearState landing);
@@ -26,4 +25,5 @@ private:
   std::vector<LandingGear> landingGears;
   pid rollPID;
   pid pitchPID;
+  pid yawPID;
 };
