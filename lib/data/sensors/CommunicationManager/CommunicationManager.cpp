@@ -1,18 +1,16 @@
+// ADIRU1 protocol?
+
 #include "data/sensors/CommunicationManager/CommunicationManager.h"
 
-CommunicationManager::CommunicationManager(FlightControlsManager *flightControlsManager)
-{
+CommunicationManager::CommunicationManager(FlightControlsManager *flightControlsManager) {
     this->flightControlsManager = flightControlsManager;
 }
 
-void CommunicationManager::periodic()
-{
+void CommunicationManager::periodic() {
     CommunicationVariant payload = this->antenna.get();
 
-    CommType payloadType = std::visit([](const auto &message)
-                                      { return message.type; }, payload);
-    switch (payloadType)
-    {
+    CommType payloadType = std::visit([](const auto &message) { return message.type; }, payload);
+    switch (payloadType) {
     case CommType::JoystickInput:
         JoystickInput joystickInput = std::get<JoystickInput>(payload);
         flightControlsManager->twoAxisJoystickToPitchRoll(joystickInput.xAxis, joystickInput.yAxis);

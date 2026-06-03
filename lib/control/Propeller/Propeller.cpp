@@ -11,6 +11,5 @@ Propeller::Propeller(int GPIO_PIN)
 }
 
 void Propeller::init() {
-    // STM32 specific init code belowp
-
+    // STM32 specific init code below
 }
