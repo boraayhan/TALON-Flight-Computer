@@ -1,10 +1,19 @@
 #include "control/ControlSurface/ControlSurface.h"
 #include "global/GlobalHeader.h"
 
-ControlSurface::ControlSurface() {}
+ControlSurface::ControlSurface() {
+    this->GPIO_PIN = -1;
+    this->type = AILERON;
+    this->name = "";
+    this->angleZeroDegrees = 0.0f;
+    this->angleTrimOffsetDegrees = 0.0f;
+    this->angleServoMinDegrees = 0.0f;
+    this->angleServoMaxDegrees = 0.0f;
+    this->DIRECTION_MULTIPLIER = 1;
+}
 
 ControlSurface::ControlSurface(int GPIO_PIN,
-                               std::string name,
+                               String name,
                                ControlSurfaceType type,
                                float angleZeroDegrees,
                                float angleServoMinDegrees,

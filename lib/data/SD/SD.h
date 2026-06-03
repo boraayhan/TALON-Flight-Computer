@@ -6,6 +6,6 @@ class SD
 {
 public:
   SD();                                 // Maybe intake some parameters, idk, that's a problem for later me
-  void writeJSONEntry(std::string jsonData); // Writes given object to SD card using its .toJSON() function
-  std::vector<Runway> getRunways();
+  void writeJSONEntry(String jsonData); // Writes given object to SD card using its .toJSON() function
+  Runway* getRunways(uint8_t &count);
 };

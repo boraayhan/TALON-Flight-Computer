@@ -4,8 +4,8 @@
 class pid
 {
 public:
-    float compute(float input, float target);
     pid();
+    float compute(float input, float target);
     pid(float KP, float KI, float KD);
 
 private:

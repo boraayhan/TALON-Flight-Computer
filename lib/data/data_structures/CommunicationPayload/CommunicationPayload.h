@@ -5,7 +5,6 @@
 
 #pragma once
 #include "global/GlobalHeader.h"
-#include <variant>
 
 enum class CommType
 {
@@ -43,9 +42,9 @@ struct FlapInput : CommunicationPayload
 
 struct JSONWrite : CommunicationPayload
 {
-    JSONWrite(const std::string json, std::string path);
-    std::string json;
-    std::string path;
+    JSONWrite(const String json, String path);
+    String json;
+    String path;
 };
 
 struct YawInput : CommunicationPayload {
@@ -53,4 +52,13 @@ struct YawInput : CommunicationPayload {
     float zAxis;
 };
 
-using CommunicationVariant = std::variant<JoystickInput, ThrottleInput, FlapInput, JSONWrite, YawInput>;
+struct CommunicationVariant {
+    CommType type;
+    float xAxis;
+    float yAxis;
+    float throttle;
+    float flapAngleDegrees;
+    String json;
+    String path;
+    float zAxis;
+};

@@ -9,19 +9,19 @@ CommunicationManager::CommunicationManager(FlightControlsManager *flightControls
 void CommunicationManager::periodic() {
     CommunicationVariant payload = this->antenna.get();
 
-    CommType payloadType = std::visit([](const auto &message) { return message.type; }, payload);
-    switch (payloadType) {
+    switch (payload.type) {
     case CommType::JoystickInput:
-        JoystickInput joystickInput = std::get<JoystickInput>(payload);
-        flightControlsManager->twoAxisJoystickToPitchRoll(joystickInput.xAxis, joystickInput.yAxis);
+        flightControlsManager->twoAxisJoystickToPitchRoll(payload.xAxis, payload.yAxis);
         break;
     case CommType::ThrottleInput:
-        flightControlsManager->setThrottle(std::get<ThrottleInput>(payload).throttle);
+        flightControlsManager->setThrottle(payload.throttle);
         break;
     case CommType::FlapInput:
-        flightControlsManager->deployFlaps(std::get<FlapInput>(payload).flapAngleDegrees);
+        flightControlsManager->deployFlaps(payload.flapAngleDegrees);
         break;
     case CommType::JSONWrite:
+        break;
+    case CommType::YawInput:
         break;
     }
 }

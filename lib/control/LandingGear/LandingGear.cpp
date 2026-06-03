@@ -1,9 +1,14 @@
 #include "control/LandingGear/LandingGear.h"
 
+LandingGear::LandingGear() {
+    this->GPIO_PIN = -1;
+    this->deployed = false;
+
+}
 LandingGear::LandingGear(int GPIO_PIN)
 {
     this->GPIO_PIN = GPIO_PIN;
-    this->deployed = false; // Start with landing gear retracted
+    this->deployed = false;
 }
 
 void LandingGear::retract() {}

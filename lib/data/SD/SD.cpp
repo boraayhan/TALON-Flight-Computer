@@ -4,12 +4,12 @@ SD::SD() {
     // Init logic
 }
 
-std::vector<Runway> SD::getRunways() {
-    std::vector<Runway> runways;
+Runway* SD::getRunways(uint8_t &count) {
+    count = 0;
     // Read from SD card json (file: config/Runways.json), parse into runways
-    return runways;
+    return nullptr;
 }
 
-void SD::writeJSONEntry(std::string jsonData) {
+void SD::writeJSONEntry(String jsonData) {
     //
 }

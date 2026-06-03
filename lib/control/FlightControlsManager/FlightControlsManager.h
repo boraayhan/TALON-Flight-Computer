@@ -13,16 +13,20 @@ public:
   void twoAxisJoystickToPitchRoll(float xAxis, float yAxis); // x: roll/aileron, y: pitch/elevator
   void rudderPedalToYaw(float zAxis);
   void setThrottle(float throttle);
-  FlightControlsManager addControlSurface(
-      ControlSurface surface);                            // Returns original object to allow daisy chaining .add()'s
-  FlightControlsManager addLandingGear(LandingGear gear); // Returns original object to allow daisy chaining .add()'s
+  FlightControlsManager addControlSurface(ControlSurface surface);
+  FlightControlsManager addLandingGear(LandingGear gear);
   void deployFlaps(float flapsPositionDegrees);
   // void deployAirbrakes(float airbrakesPositionDegrees); <--- Implement later
   void setLandingGear(LandingGearState landing);
 
 private:
-  std::vector<ControlSurface> controlSurfaces;
-  std::vector<LandingGear> landingGears;
+  static const uint8_t MAX_CONTROL_SURFACES = 8;
+  static const uint8_t MAX_LANDING_GEARS = 4;
+
+  ControlSurface controlSurfaces[MAX_CONTROL_SURFACES];
+  LandingGear landingGears[MAX_LANDING_GEARS];
+  uint8_t controlSurfaceCount;
+  uint8_t landingGearCount;
   pid rollPID;
   pid pitchPID;
   pid yawPID;

@@ -8,6 +8,7 @@ enum LandingGearState {
 class LandingGear
 {
 public:
+    LandingGear();
     LandingGear(int GPIO_PIN);
     void retract();
     void deploy();

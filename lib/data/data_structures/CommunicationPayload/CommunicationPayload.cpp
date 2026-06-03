@@ -16,12 +16,13 @@ FlapInput::FlapInput(float flap) {
   this->flapAngleDegrees = flap;
 }
 
-JSONWrite::JSONWrite(const std::string json, std::string path) {
+JSONWrite::JSONWrite(const String json, String path) {
   this->type = CommType::JSONWrite;
   this->json = json;
   this->path = path;
 }
 
 YawInput::YawInput(float zA) {
+  this->type = CommType::YawInput;
   this->zAxis = zA;
 }

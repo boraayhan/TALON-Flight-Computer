@@ -1,6 +1,6 @@
 #include "control/FlightControlsManager/FlightControlsManager.h"
 
-FlightControlsManager::FlightControlsManager() {}
+FlightControlsManager::FlightControlsManager() : controlSurfaceCount(0), landingGearCount(0) {}
 
 void FlightControlsManager::init() {
     this->rollPID = pid(1.0, 0.0, 0.0);  // FIXME: Tune!
@@ -39,8 +39,17 @@ void FlightControlsManager::rudderPedalToYaw(float zAxis) {
 void FlightControlsManager::setThrottle(float throttle) {}
 
 FlightControlsManager FlightControlsManager::addControlSurface(ControlSurface surface) {
-    this->controlSurfaces.push_back(surface);
+    if (this->controlSurfaceCount < MAX_CONTROL_SURFACES) {
+        this->controlSurfaces[this->controlSurfaceCount++] = surface;
+    }
     return *this; // Because it looks cool to have a chain of .add().add().add()
+}
+
+FlightControlsManager FlightControlsManager::addLandingGear(LandingGear gear) {
+    if (this->landingGearCount < MAX_LANDING_GEARS) {
+        this->landingGears[this->landingGearCount++] = gear;
+    }
+    return *this;
 }
 
 void FlightControlsManager::deployFlaps(float flapsPositionDegrees) {

@@ -4,10 +4,10 @@
 class Runway
 {
 public:
-  Runway(std::string name, const Vector3 &startPositionMeters,
+  Runway(String name, const Vector3 &startPositionMeters,
          const Vector3 &endPositionMeters); // Start position, end position
 
-  Runway(std::string name, const Vector3 &startPositionMeters,
+  Runway(String name, const Vector3 &startPositionMeters,
          float distanceMeters,
          const Vector3 &direction); // Start position, distance, direction
   Vector3 getStartPointMeters();
@@ -15,14 +15,14 @@ public:
   Vector3 getDirection();
   float getLengthMeters();
 
-  std::string toJSON();
+  String toJSON();
 
-  std::string getName();
+  String getName();
 
 private:
   Vector3 startPositionMeters;
   Vector3 endPositionMeters;
   Vector3 direction;
   float lengthMeters;
-  std::string name;
+  String name;
 };

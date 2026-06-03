@@ -1,30 +1,19 @@
-#include "src/main.h"
+#include "main.h"
 
 FlightControlsManager flightControlsManager;
 
 int main() {
-    // clang-format off
-ControlSurface aileronLeft(0,
-                               "Aileron Left",
-                               AILERON,
-                               0,
-                               AILERON_SERVO_POS_MIN_DEG,
-                               AILERON_SERVO_POS_MAX_DEG,
-                               +1);
+    ControlSurface aileronLeft(
+        0, "Aileron Left", AILERON, 0, -AILERON_SERVO_POS_MAX_DEG, AILERON_SERVO_POS_MAX_DEG, +1);
 
-    ControlSurface aileronRight(1,
-                                "Aileron Right",
-                                AILERON,
-                                0,
-                                AILERON_SERVO_POS_MIN_DEG,
-                                AILERON_SERVO_POS_MAX_DEG,
-                                -1);
+    ControlSurface aileronRight(
+        1, "Aileron Right", AILERON, 0, -AILERON_SERVO_POS_MAX_DEG, AILERON_SERVO_POS_MAX_DEG, -1);
 
     ControlSurface elevatorLeft(2,
                                 "Elevator Left",
                                 ELEVATOR,
                                 0,
-                                ELEVATOR_SERVO_POS_MIN_DEG,
+                                -ELEVATOR_SERVO_POS_MAX_DEG,
                                 ELEVATOR_SERVO_POS_MAX_DEG,
                                 1);
 
@@ -32,28 +21,20 @@ ControlSurface aileronLeft(0,
                                  "Elevator Right",
                                  ELEVATOR,
                                  0,
-                                 ELEVATOR_SERVO_POS_MIN_DEG,
+                                 -ELEVATOR_SERVO_POS_MAX_DEG,
                                  ELEVATOR_SERVO_POS_MAX_DEG,
                                  -1);
-
-    ControlSurface rudder(4,
-                          "Rudder",
-                          RUDDER,
-                          0,
-                          RUDDER_SERVO_POS_MIN_DEG,
-                          RUDDER_SERVO_POS_MAX_DEG,
-                          1);
-    // clang-format on
 
     flightControlsManager.addControlSurface(aileronLeft)
         .addControlSurface(aileronRight)
         .addControlSurface(elevatorLeft)
-        .addControlSurface(elevatorRight)
-        .addControlSurface(rudder);
+        .addControlSurface(elevatorRight);
 
     while (true) {
         periodic();
     }
 }
 
-int periodic() {}
+int periodic() {
+    return 0;
+}

@@ -1,10 +1,9 @@
 #pragma once
 
 // Generic library to include for access to constants, math, and select datatypes
-#include "global/Constants/Constants.h"
-#include "global/math/PID/PID.h"
-#include "global/math/Statistics/Statistics.h"
-#include "global/math/Vector/Vector.h"
-#include <string>
-#include <vector>
-#include <cstdint>
+#include "Constants/Constants.h"
+#include "math/PID/PID.h"
+#include "math/Statistics/Statistics.h"
+#include "math/Vector/Vector.h"
+#include <Arduino.h>
+#include <stdint.h>
