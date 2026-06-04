@@ -14,7 +14,6 @@ class FlightControlsManager {
     void setThrottle(float throttle);
     FlightControlsManager &addControlSurface(ControlSurface &surface);
     FlightControlsManager &addMotor(Motor &motor);
-    void deployFlaps(float flapsPositionDegrees);
     void testControlSurfaces();
     void updateThrottle();
 

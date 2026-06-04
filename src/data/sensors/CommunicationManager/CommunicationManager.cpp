@@ -16,12 +16,10 @@ void CommunicationManager::periodic() {
     case CommType::ThrottleInput:
         flightControlsManager->setThrottle(payload.throttle);
         break;
-    case CommType::FlapInput:
-        flightControlsManager->deployFlaps(payload.flapAngleDegrees);
-        break;
     case CommType::JSONWrite:
         break;
     case CommType::YawInput:
+        flightControlsManager->rudderPedalToYaw(payload.zAxis);
         break;
     }
 }

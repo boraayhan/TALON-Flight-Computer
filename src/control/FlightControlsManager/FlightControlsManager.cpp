@@ -56,15 +56,6 @@ FlightControlsManager &FlightControlsManager::addMotor(Motor &motor) {
     return *this;
 }
 
-void FlightControlsManager::deployFlaps(float flapsPositionDegrees) {
-    for (uint8_t i = 0; i < controlSurfaceCount; i++) {
-        ControlSurface *surface = controlSurfaces[i];
-        if (surface != nullptr && surface->getType() == FLAP) {
-            surface->move(flapsPositionDegrees);
-        }
-    }
-}
-
 void FlightControlsManager::testControlSurfaces() {
     for (uint8_t i = 0; i < controlSurfaceCount; i++) {
         ControlSurface *surface = controlSurfaces[i];

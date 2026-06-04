@@ -31,17 +31,17 @@ ControlSurface::ControlSurface(int GPIO_PIN,
 }
 
 void ControlSurface::test() {
-    for(int ang = 0; ang <= this->angleServoMaxDegrees; ang += 20) {
+    for(int ang = 0; ang <= this->angleServoMaxDegrees; ang += 5) {
         this->move(ang);
-        delay(500);
+        delay(15);
     }
-    for(int ang = this->angleServoMaxDegrees; ang >= this->angleServoMinDegrees; ang -= 20) {
+    for(int ang = this->angleServoMaxDegrees; ang >= this->angleServoMinDegrees; ang -= 5) {
         this->move(ang);
-        delay(500);
+        delay(15);
     }
-        for(int ang = this->angleServoMinDegrees; ang <= 0; ang += 20) {
+        for(int ang = this->angleServoMinDegrees; ang <= 0; ang += 5) {
             this->move(ang);
-            delay(500);
+            delay(15);
         }
         this->move(0);
 }
