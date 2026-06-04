@@ -1,5 +1,5 @@
 #pragma once
-#include "data/sensors/ANTENNA_PLACEHOLDER/AntennaPlaceholder.h"
+#include "data/sensors/RF24/RF24.h"
 #include "global/GlobalHeader.h"
 #include "control/FlightControlsManager/FlightControlsManager.h"
 
@@ -8,6 +8,6 @@ class CommunicationManager {
     CommunicationManager(FlightControlsManager *flightControlsManager);
     void periodic(); // Parses incoming signals
   private:
-    AntennaPlaceholder antenna;
+    RF24 antenna;
     FlightControlsManager *flightControlsManager;
 };
