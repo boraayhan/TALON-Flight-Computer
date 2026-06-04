@@ -1,34 +1,31 @@
 #pragma once
 
 #include "control/ControlSurface/ControlSurface.h"
-#include "control/LandingGear/LandingGear.h"
+#include "control/Motor/Motor.h"
 #include "global/GlobalHeader.h"
 #include "global/math/PID/PID.h"
 
-class FlightControlsManager
-{
-public:
-  FlightControlsManager();
-  void init();
-  void twoAxisJoystickToPitchRoll(float xAxis, float yAxis); // x: roll/aileron, y: pitch/elevator
-  void rudderPedalToYaw(float zAxis);
-  void setThrottle(float throttle);
-FlightControlsManager& addControlSurface(ControlSurface& surface);
-  FlightControlsManager& addLandingGear(LandingGear& gear);
-  void deployFlaps(float flapsPositionDegrees);
-  // void deployAirbrakes(float airbrakesPositionDegrees); <--- Implement later
-  void setLandingGear(LandingGearState landing);
-  void testControlSurfaces();
+class FlightControlsManager {
+  public:
+    FlightControlsManager();
+    void init();
+    void twoAxisJoystickToPitchRoll(float xAxis, float yAxis); // x: roll/aileron, y: pitch/elevator
+    void rudderPedalToYaw(float zAxis);
+    void setThrottle(float throttle);
+    FlightControlsManager &addControlSurface(ControlSurface &surface);
+    FlightControlsManager &addMotor(Motor &motor);
+    void deployFlaps(float flapsPositionDegrees);
+    void testControlSurfaces();
+    void updateThrottle();
 
-private:
-  static const uint8_t MAX_CONTROL_SURFACES = 1;
-  static const uint8_t MAX_LANDING_GEARS = 4;
+  private:
+    float throttle;
+    static const uint8_t MAX_CONTROL_SURFACES = 4;
+    static const uint8_t MAX_MOTORS = 2;
 
-ControlSurface* controlSurfaces[MAX_CONTROL_SURFACES]; 
- LandingGear landingGears[MAX_LANDING_GEARS];
-  uint8_t controlSurfaceCount;
-  uint8_t landingGearCount;
-  pid rollPID;
-  pid pitchPID;
-  pid yawPID;
+    ControlSurface *controlSurfaces[MAX_CONTROL_SURFACES];
+    Motor *motors[MAX_MOTORS];
+
+    uint8_t controlSurfaceCount;
+    uint8_t motorCount;
 };
