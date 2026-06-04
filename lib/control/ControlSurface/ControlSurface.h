@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <Servo.h>
 #pragma once
 
 enum ControlSurfaceType {
@@ -20,6 +21,7 @@ class ControlSurface {
     float angleServoMinDegrees;
     float angleServoMaxDegrees; // Maximum angle for servo (not control surface)
     int DIRECTION_MULTIPLIER;   // +1 or -1 to correct for rotational symmetry
+    Servo servo;
   public:
     ControlSurface();
     ControlSurface(int GPIO_PIN,

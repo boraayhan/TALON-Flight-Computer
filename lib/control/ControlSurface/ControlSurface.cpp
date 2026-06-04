@@ -27,11 +27,28 @@ ControlSurface::ControlSurface(int GPIO_PIN,
     this->DIRECTION_MULTIPLIER = DIRECTION_MULTIPLIER;
     this->type = type;
     this->name = name;
+    this->servo.attach(GPIO_PIN);
 }
 
-void ControlSurface::test() {}
+void ControlSurface::test() {
+    for(int ang = 0; ang <= this->angleServoMaxDegrees; ang += 20) {
+        this->move(ang);
+        delay(500);
+    }
+    for(int ang = this->angleServoMaxDegrees; ang >= this->angleServoMinDegrees; ang -= 20) {
+        this->move(ang);
+        delay(500);
+    }
+        for(int ang = this->angleServoMinDegrees; ang <= 0; ang += 20) {
+            this->move(ang);
+            delay(500);
+        }
+        this->move(0);
+}
 
-void ControlSurface::move(float angle) {}
+void ControlSurface::move(float angle) {
+    this->servo.write(this->angleZeroDegrees + this->DIRECTION_MULTIPLIER * angle);
+}
 
 int ControlSurface::getDirectionMultiplier() const { return this->DIRECTION_MULTIPLIER; }
 
