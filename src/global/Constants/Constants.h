@@ -3,7 +3,8 @@
 
 // Flight Modes
 const float FLAPERON_RATIO_CONSTANT = 0.3;       // 0 for flaperon mode off, 0.3 recommended
-const float AUTOPILOT_DISENGAGE_THRESHOLD = 0.3; // 0 to 1, how "hard" input is needed to disengage AP. > 0.5 is dangerous.
+const float AUTOPILOT_DISENGAGE_THRESHOLD = 0.3; // 0 to 1, how "hard" input is needed to disengage AP. > 0.5 is
+                                                 // dangerous.
 
 // Authority Limiters on Servos (not control surfaces)
 // Represents max displacement from zero-level for a symmetric control surface

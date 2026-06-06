@@ -1,9 +1,7 @@
 #include "data/sensors/CommunicationManager/CommunicationManager.h"
 
-CommunicationManager::CommunicationManager(
-    FlightControlsManager *flightControlsManager)
-    : radio(RADIO_PIN_CE, RADIO_PIN_CSN),
-      flightControlsManager(flightControlsManager) {}
+CommunicationManager::CommunicationManager(FlightControlsManager *flightControlsManager)
+    : radio(RADIO_PIN_CE, RADIO_PIN_CSN), flightControlsManager(flightControlsManager) {}
 
 void CommunicationManager::init() {
   Serial.begin(115200);

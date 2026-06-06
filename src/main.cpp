@@ -8,11 +8,9 @@ CommunicationManager communicationManager(&flightControlsManager);
 Motor motorLeft(MOTOR_LEFT_PIN);
 Motor motorRight(MOTOR_RIGHT_PIN);
 
-ControlSurface aileronLeft(AILERON_LEFT_PIN, "Aileron Left", AILERON, 90,
-                           -AILERON_SERVO_POS_MAX_DEG,
+ControlSurface aileronLeft(AILERON_LEFT_PIN, "Aileron Left", AILERON, 90, -AILERON_SERVO_POS_MAX_DEG,
                            AILERON_SERVO_POS_MAX_DEG, +1);
-ControlSurface aileronRight(AILERON_RIGHT_PIN, "Aileron Right", AILERON, 90,
-                            -AILERON_SERVO_POS_MAX_DEG,
+ControlSurface aileronRight(AILERON_RIGHT_PIN, "Aileron Right", AILERON, 90, -AILERON_SERVO_POS_MAX_DEG,
                             AILERON_SERVO_POS_MAX_DEG, -1);
 
 /*ControlSurface elevatorLeft(ELEVATOR_LEFT_PIN,

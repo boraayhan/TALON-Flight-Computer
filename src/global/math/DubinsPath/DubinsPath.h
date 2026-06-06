@@ -2,14 +2,7 @@
 
 #include "global/GlobalHeader.h"
 
-enum DubinsPathType {
-    LSL = 0,
-    LSR,
-    LRL,
-    RSL,
-    RSR,
-    RLR
-};
+enum DubinsPathType { LSL = 0, LSR, LRL, RSL, RSR, RLR };
 
 // WARNING: NOT FINISHED!
 class DubinsPath {

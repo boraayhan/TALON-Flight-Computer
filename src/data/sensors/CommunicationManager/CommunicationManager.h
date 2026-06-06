@@ -5,12 +5,12 @@
 #include <RF24.h>
 
 class CommunicationManager {
-public:
-  CommunicationManager(FlightControlsManager *flightControlsManager);
-  void periodic(); // Parses incoming signals
-  void init();
+  public:
+    CommunicationManager(FlightControlsManager *flightControlsManager);
+    void periodic(); // Parses incoming signals
+    void init();
 
-private:
-  RF24 radio;
-  FlightControlsManager *flightControlsManager;
+  private:
+    RF24 radio;
+    FlightControlsManager *flightControlsManager;
 };

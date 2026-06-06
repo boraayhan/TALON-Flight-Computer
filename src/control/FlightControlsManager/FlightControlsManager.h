@@ -9,7 +9,8 @@ class FlightControlsManager {
   public:
     FlightControlsManager();
     void init();
-    void twoAxisJoystickToPitchRoll(float xAxis, float yAxis); // x: roll/aileron, y: pitch/elevator
+    void twoAxisJoystickToPitchRoll(float xAxis,
+                                    float yAxis); // x: roll/aileron, y: pitch/elevator
     void rudderPedalToYaw(float zAxis);
     void setThrottle(float throttle);
     FlightControlsManager &addControlSurface(ControlSurface &surface);

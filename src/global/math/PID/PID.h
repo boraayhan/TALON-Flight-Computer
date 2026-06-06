@@ -1,14 +1,13 @@
 #pragma once
 
 // WARNING: NOT FINISHED!
-class pid
-{
-public:
+class pid {
+  public:
     pid();
     float compute(float input, float target);
     pid(float KP, float KI, float KD);
 
-private:
+  private:
     float kP;
     float kI;
     float kD;

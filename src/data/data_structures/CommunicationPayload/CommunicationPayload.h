@@ -7,7 +7,7 @@ enum class CommType {
 };
 
 struct Payload {
-  int32_t id;
-  float p1;
-  float p2;
+    int32_t id;
+    float p1;
+    float p2;
 };

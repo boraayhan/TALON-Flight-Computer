@@ -1,7 +1,6 @@
 #include "control/FlightControlsManager/FlightControlsManager.h"
 
-FlightControlsManager::FlightControlsManager()
-    : controlSurfaceCount(0), motorCount(0) {
+FlightControlsManager::FlightControlsManager() : controlSurfaceCount(0), motorCount(0) {
   for (int i = 0; i < MAX_CONTROL_SURFACES; i++) {
     controlSurfaces[i] = nullptr;
   }
@@ -10,8 +9,7 @@ FlightControlsManager::FlightControlsManager()
   }
 }
 
-void FlightControlsManager::twoAxisJoystickToPitchRoll(float xAxis,
-                                                       float yAxis) {
+void FlightControlsManager::twoAxisJoystickToPitchRoll(float xAxis, float yAxis) {
   if (xAxis > 1 || yAxis > 1) {
     return;
   }
@@ -44,8 +42,7 @@ void FlightControlsManager::setThrottle(float throttle) {
   updateThrottle();
 }
 
-FlightControlsManager &
-FlightControlsManager::addControlSurface(ControlSurface &surface) {
+FlightControlsManager &FlightControlsManager::addControlSurface(ControlSurface &surface) {
   if (this->controlSurfaceCount < MAX_CONTROL_SURFACES) {
     this->controlSurfaces[this->controlSurfaceCount++] = &surface;
   }
@@ -83,8 +80,7 @@ void FlightControlsManager::init() {
     Motor *motor = motors[i];
     Serial.println("Attempting to init motor " + String(i));
     if (motor != nullptr) {
-      Serial.println("Motor " + String(i) +
-                     " pointer is valid, calling init()");
+      Serial.println("Motor " + String(i) + " pointer is valid, calling init()");
       motor->init();
       Serial.println("Motor " + String(i) + " initialized.");
     } else {
@@ -95,8 +91,7 @@ void FlightControlsManager::init() {
     ControlSurface *surface = controlSurfaces[i];
     if (surface != nullptr) {
       surface->init();
-      Serial.println("Control Surface + " + String(surface->getName()) +
-                     " initialized.");
+      Serial.println("Control Surface + " + String(surface->getName()) + " initialized.");
     }
   }
   Serial.println("Control Manager initialized.");
