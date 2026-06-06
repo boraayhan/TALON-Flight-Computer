@@ -43,9 +43,13 @@ try:
 
         # Throttle
         throttle = (-joystick.get_axis(2) + 1) / 2
-        if abs(throttle - pThrottle) > 0.03:
+        if abs(throttle - pThrottle) > 0.07:
             transmit(3, throttle, 0)
             pThrottle = throttle
+            isThrottleZero = False
+        if(throttle <= 0.07 and pThrottle > 0.07):
+            transmit(3, 0, 0)
+            pThrottle = 0
 
         hat_raw = joystick.get_hat(0)
         hat = (int(hat_raw[0]), int(hat_raw[1]))

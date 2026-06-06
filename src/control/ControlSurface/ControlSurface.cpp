@@ -27,7 +27,6 @@ ControlSurface::ControlSurface(int GPIO_PIN,
     this->DIRECTION_MULTIPLIER = DIRECTION_MULTIPLIER;
     this->type = type;
     this->name = name;
-    this->servo.attach(GPIO_PIN);
 }
 
 void ControlSurface::test() {
@@ -55,3 +54,10 @@ int ControlSurface::getDirectionMultiplier() const { return this->DIRECTION_MULT
 void ControlSurface::changeTrim(float angle) {}
 
 ControlSurfaceType ControlSurface::getType() const { return this->type; }
+
+void ControlSurface::init() {
+    this->servo.attach(this->GPIO_PIN);
+    this->servo.write(this->angleZeroDegrees);
+}
+
+String ControlSurface::getName() const { return this->name; }

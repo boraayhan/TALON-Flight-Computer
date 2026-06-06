@@ -19,5 +19,5 @@ private:
   AutopilotAxisState roll;
   AutopilotAxisState pitch;
   AutopilotAxisState yaw;
-  // TODO: Figure out control priority method, ie whethr to use  roll pitch yaw or targets + dubins path
+  // TODO: Figure out control priority method, i.e. whethr to use roll pitch yaw or targets + dubins path
 };

@@ -22,5 +22,5 @@ const uint8_t AILERON_RIGHT_PIN = 33;
 const uint8_t ELEVATOR_LEFT_PIN = 38;
 const uint8_t ELEVATOR_RIGHT_PIN = 39; // --!UNUSED!--
 // Motor Pins
-const uint8_t MOTOR_LEFT_PIN = 46; 
-const uint8_t MOTOR_RIGHT_PIN = 53;
+const uint8_t MOTOR_LEFT_PIN = 4;
+const uint8_t MOTOR_RIGHT_PIN = 2;

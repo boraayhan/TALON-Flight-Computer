@@ -22,6 +22,7 @@ class ControlSurface {
     int DIRECTION_MULTIPLIER;   // +1 or -1 to correct for rotational symmetry
     Servo servo;
   public:
+    void init();
     ControlSurface();
     ControlSurface(int GPIO_PIN,
                    String name,
@@ -35,5 +36,6 @@ class ControlSurface {
     void move(float angle);       // Sets control surface to angle with respect to zero
     void changeTrim(float angle); // Changes trim by angle
     int getDirectionMultiplier() const;
+    String getName() const;
     ControlSurfaceType getType() const;
 };
