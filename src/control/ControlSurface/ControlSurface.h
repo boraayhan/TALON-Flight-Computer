@@ -7,7 +7,6 @@ enum ControlSurfaceType {
     ELEVATOR, // Controls pitch axis
     RUDDER,   // Controls yaw axis
     FLAP,     // Increases lift, such that a (+k * DIRECTION_MULTIPLIER) command results in great
-    AIRBRAKE, // Creates drag
 };
 
 class ControlSurface {
