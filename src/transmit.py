@@ -3,7 +3,7 @@ import serial
 import time
 import pygame
 
-ser = serial.Serial("/dev/ttyUSB0", 115200, timeout=1)
+ser = serial.Serial("/dev/ttyUSB1", 115200, timeout=1)
 
 pygame.init()
 pygame.joystick.init()
@@ -43,11 +43,11 @@ try:
 
         # Throttle
         throttle = (-joystick.get_axis(2) + 1) / 2
-        if abs(throttle - pThrottle) > 0.07:
+        if abs(throttle - pThrottle) > 0.09:
             transmit(3, throttle, 0)
             pThrottle = throttle
             isThrottleZero = False
-        if(throttle <= 0.07 and pThrottle > 0.07):
+        if(throttle <= 0.09 and pThrottle > 0.09):
             transmit(3, 0, 0)
             pThrottle = 0
 

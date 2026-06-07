@@ -7,4 +7,3 @@
 #include "math/Statistics/Statistics.h"
 #include "math/Vector/Vector.h"
 #include <Arduino.h>
-#include <stdint.h>

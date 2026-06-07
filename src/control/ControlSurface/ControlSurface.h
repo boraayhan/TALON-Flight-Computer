@@ -3,12 +3,9 @@
 #pragma once
 
 enum ControlSurfaceType {
-  AILERON,  // Controls roll axis, such that a (+k * DIRECTION_MULTIPLIER)
-            // command results in CW roll about velocity vector
+  AILERON,  // Controls roll axis, such that a (+k * DIRECTION_MULTIPLIER) command results in CW roll about velocity vector
   ELEVATOR, // Controls pitch axis
   RUDDER,   // Controls yaw axis
-  FLAP,     // Increases lift, such that a (+k * DIRECTION_MULTIPLIER) command
-            // results in great
 };
 
 class ControlSurface {
