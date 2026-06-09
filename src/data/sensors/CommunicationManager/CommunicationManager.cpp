@@ -34,6 +34,10 @@ void CommunicationManager::periodic() {
       break;
     case (int32_t)CommType::ThrottleInput:
       flightControlsManager->setThrottle(payload.p1);
+      flightControlsManager->resetThrottleTimer();
+      break;
+    case (int32_t)CommType::TrimInput:
+      flightControlsManager->changeTrim(payload.p1, payload.p2);
       break;
     }
   }

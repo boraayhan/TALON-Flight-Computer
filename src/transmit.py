@@ -3,15 +3,25 @@ import serial
 import time
 import pygame
 
-ser = serial.Serial("/dev/ttyUSB1", 115200, timeout=1)
+ser = serial.Serial("/dev/ttyUSB0", 115200, timeout=1)
 
 pygame.init()
 pygame.joystick.init()
 
+
+THROTTLE_TRANSMIT_INTERVAL = 1
+THROTTLE_STEP = 0.15
+
 pRoll = 0
 pPitch = 0
 pThrottle = 0
+throttle = 0
 
+plb = False
+prb = False
+
+tThrottle_ns = 0 # time of last throttle update, ns
+tLb_ns = 0
 if pygame.joystick.get_count() == 0:
     print("ERROR: No joystick found.")
     exit()
@@ -35,24 +45,36 @@ try:
         # Joystick input
         roll = joystick.get_axis(0)
         pitch = joystick.get_axis(1)
-        if abs(roll - pRoll) > 0.07 or abs(pitch - pPitch) > 0.07:
+        if abs(roll - pRoll) > 0.05 or abs(pitch - pPitch) > 0.05:
             transmit(0, roll, pitch)
-
             pRoll = roll
             pPitch = pitch
+        if time.time_ns() - tThrottle_ns > THROTTLE_TRANSMIT_INTERVAL * 1e9:
+            transmit(3, throttle, 0)
+            tThrottle_ns = time.time_ns()
 
         # Throttle
-        throttle = (-joystick.get_axis(2) + 1) / 2
-        if abs(throttle - pThrottle) > 0.09:
+        lb = joystick.get_button(4)
+        rb = joystick.get_button(5)
+
+        if lb and not plb:
+            throttle = max(0.0, throttle - THROTTLE_STEP)
             transmit(3, throttle, 0)
             pThrottle = throttle
-            isThrottleZero = False
-        if(throttle <= 0.09 and pThrottle > 0.09):
-            transmit(3, 0, 0)
-            pThrottle = 0
+            tLb_ns = time.time_ns()
 
-        hat_raw = joystick.get_hat(0)
-        hat = (int(hat_raw[0]), int(hat_raw[1]))
-                
+        if rb and not prb:
+            throttle = min(1.0, throttle + THROTTLE_STEP)
+            transmit(3, throttle, 0)
+            pThrottle = throttle
+
+        if lb and (time.time_ns() - tLb_ns) > 5e8:
+            transmit(3, 0, 0)
+            throttle = 0
+            pThrottle = 0
+            tLb_ns = time.time_ns()
+        plb = lb
+        prb = rb
+
 except Exception as err:
     print(f"Exiting program: {err}")

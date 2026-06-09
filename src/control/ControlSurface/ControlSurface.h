@@ -20,7 +20,6 @@ class ControlSurface {
     float angleServoMaxDegrees; // Maximum angle for servo (not control surface)
     int DIRECTION_MULTIPLIER;   // +1 or -1 to correct for rotational symmetry
     Servo servo;
-
   public:
     void init();
     ControlSurface();

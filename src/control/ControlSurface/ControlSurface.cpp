@@ -46,7 +46,9 @@ void ControlSurface::move(float angle) {
 
 int ControlSurface::getDirectionMultiplier() const { return this->DIRECTION_MULTIPLIER; }
 
-void ControlSurface::changeTrim(float angle) {}
+void ControlSurface::changeTrim(float angle) {
+  angleTrimOffsetDegrees+=angle;
+}
 
 ControlSurfaceType ControlSurface::getType() const { return this->type; }
 

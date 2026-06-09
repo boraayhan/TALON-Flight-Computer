@@ -16,7 +16,7 @@ ControlSurface aileronRight(AILERON_RIGHT_PIN, "Aileron Right", AILERON, 80, -AI
 ControlSurface elevatorLeft(ELEVATOR_LEFT_PIN,
                             "Elevator Left",
                             ELEVATOR,
-                            90,
+                            50,
                             -ELEVATOR_SERVO_POS_MAX_DEG,
                             ELEVATOR_SERVO_POS_MAX_DEG,
                             1);
@@ -46,5 +46,4 @@ void setup() {
 
 void loop() {
   communicationManager.periodic();
-  flightControlsManager.updateThrottle();
 }
