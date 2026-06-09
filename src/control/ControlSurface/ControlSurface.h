@@ -20,6 +20,7 @@ class ControlSurface {
     float angleServoMaxDegrees; // Maximum angle for servo (not control surface)
     int DIRECTION_MULTIPLIER;   // +1 or -1 to correct for rotational symmetry
     Servo servo;
+    float flapAngleDegrees; // Applies to flaperon mode, for ailerons
 
   public:
     void init();
@@ -38,4 +39,5 @@ class ControlSurface {
     int getDirectionMultiplier() const;
     String getName() const;
     ControlSurfaceType getType() const;
+    void changeFlap(float flapAngle);
 };

@@ -46,13 +46,8 @@ void ControlSurface::test() {
 }
 
 void ControlSurface::move(float angle) {
-    // if (this->type == AILERON) {
-    //     angle +=
-    //         flap * FLAPERON_RATIO_CONSTANT *
-    //         this->DIRECTION_MULTIPLIER; // Verify whether this multiplication is necessary, its like 3 am in the middle of summer and i need sleep
-    // }
     this->servo.write(constrain(
-        this->angleZeroDegrees + this->DIRECTION_MULTIPLIER * angle + this->angleTrimOffsetDegrees,
+        this->angleZeroDegrees + this->DIRECTION_MULTIPLIER * angle + this->angleTrimOffsetDegrees + this->flapAngleDegrees * (this->type == AILERON ? 1 : 0) * FLAPERON_RATIO_CONSTANT,
         this->angleServoMinDegrees,
         this->angleServoMaxDegrees));
 }
@@ -69,3 +64,10 @@ void ControlSurface::init() {
 }
 
 String ControlSurface::getName() const { return this->name; }
+
+void ControlSurface::changeFlap(float flapAngle) {
+    this->flapAngleDegrees = flapAngle;
+    if (this->type == AILERON) {
+        this->flapAngleDegrees+=flapAngle;
+    }
+}

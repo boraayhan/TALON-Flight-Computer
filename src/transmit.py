@@ -18,10 +18,16 @@ throttle = 0
 
 plb = False
 prb = False
-paU = False
-paD = False
-paL = False
-paR = False
+
+ptri = False
+px = False
+
+phU = False
+phD = False
+phL = False
+phR = False
+
+pOptionsButton = False
 
 tThrottle_ns = 0  # time of last throttle update, ns
 tLb_ns = 0
@@ -75,23 +81,34 @@ try:
         plb = lb
         prb = rb
 
+        # Flap
+        x = joystick.get_button(0)
+        tri = joystick.get_button(2)
+        if x and not px:  # Flap down
+            transmit(2, 1, 10) # 10 deg
+        if tri and not ptri: # Flap up
+            transmit(2, 1, -10) # -10 deg
+
         # Trim (1 deg per arrow)
-        aU = joystick.get_button(13) # Arrow up
-        aD = joystick.get_button(14) # Arrow down
-        aL = joystick.get_button(12) # Arrow left
-        aR = joystick.get_button(15) # Arrow right
-        if aU and not paU: # Arrow up
+        hx, hy = joystick.get_hat(0)
+        if hy == 1 and not phU:  # Hat up
             transmit(1, 0, 1)
-        if aD and not paD: # Arrow down
+        if hy == -1 and not phD:  # Hat down
             transmit(1, 0, -1)
-        if aL and not paL: # Arrow left
+        if hx == -1 and not phL:  # Hat left
             transmit(1, -1, 0)
-        if aR and not paR: # Arrow right
+        if hx == 1 and not phR:  # Hat right
             transmit(1, 1, 0)
-        paU = aU
-        paD = aD
-        paL = aL
-        paR = aR
+        phU = hy == 1
+        phD = hy == -1
+        phL = hx == -1
+        phR = hx == 1
+
+        # TOGA mode
+        optionsButton = joystick.get_button(9)
+        if optionsButton and not pOptionsButton:
+            transmit(4, 0.1, 0) # 0.1 for testing, use 1 before flight 
+        pOptionsButton = optionsButton
 
 except Exception as err:
     print(f"Exiting program: {err}")

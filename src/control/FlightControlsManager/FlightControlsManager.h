@@ -20,6 +20,8 @@ class FlightControlsManager {
     void changeTrim(float rollChangeDeg, float pitchChangeDeg);
     void resetThrottleTimer();
     unsigned long getLastThrottleUpdateTime() const;
+    void enableTOGA(double togaThrottle);
+    void changeFlap(float flapAngle);
 
   private:
     float throttle;

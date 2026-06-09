@@ -4,7 +4,9 @@
 enum class CommType {
   JoystickInput = 0,
   TrimInput = 1,
-  ThrottleInput = 3
+  FlapInput = 2,
+  ThrottleInput = 3,
+  TOGAInput = 4
 };
 
 struct Payload {

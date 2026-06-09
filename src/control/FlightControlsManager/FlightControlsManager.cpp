@@ -119,3 +119,23 @@ void FlightControlsManager::periodic() {
     }
     this->updateThrottle();
 }
+
+void FlightControlsManager::enableTOGA(double togaThrottle) {
+    delay(5000);
+    twoAxisJoystickToPitchRoll(-1, -1);
+    delay(2000);
+    twoAxisJoystickToPitchRoll(1, 1);
+    delay(2000);
+    twoAxisJoystickToPitchRoll(0, 1);
+    delay(2000);
+    setThrottle(togaThrottle);
+}
+
+void FlightControlsManager::changeFlap(float flapAngle) {
+    for (uint8_t i = 0; i < controlSurfaceCount; i++) {
+        ControlSurface *surface = controlSurfaces[i];
+        if (surface != nullptr && surface->getType() == AILERON) {
+            surface->changeFlap(flapAngle);
+        }
+    }
+}
