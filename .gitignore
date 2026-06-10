@@ -1,2 +1,5 @@
 .clang-format
 .vscode/
+.pio/
+build/
+test.py

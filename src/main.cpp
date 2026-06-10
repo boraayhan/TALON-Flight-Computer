@@ -1,59 +1,51 @@
-#include "src/main.h"
+#include "control/FlightControlsManager/FlightControlsManager.h"
+#include "data/sensors/CommunicationManager/CommunicationManager.h"
+  #include "global/GlobalHeader.h"
 
 FlightControlsManager flightControlsManager;
+CommunicationManager communicationManager(&flightControlsManager);
 
-int main() {
-    // clang-format off
-ControlSurface aileronLeft(0,
-                               "Aileron Left",
-                               AILERON,
-                               0,
-                               AILERON_SERVO_POS_MIN_DEG,
-                               AILERON_SERVO_POS_MAX_DEG,
-                               +1);
+Motor motorLeft(MOTOR_LEFT_PIN);
+Motor motorRight(MOTOR_RIGHT_PIN);
 
-    ControlSurface aileronRight(1,
-                                "Aileron Right",
-                                AILERON,
-                                0,
-                                AILERON_SERVO_POS_MIN_DEG,
-                                AILERON_SERVO_POS_MAX_DEG,
-                                -1);
+ControlSurface aileronLeft(AILERON_LEFT_PIN,
+                           "Aileron Left",
+                           AILERON,
+                           60,
+                           -AILERON_SERVO_POS_MAX_DEG,
+                           AILERON_SERVO_POS_MAX_DEG,
+                           -1);
+ControlSurface aileronRight(AILERON_RIGHT_PIN,
+                            "Aileron Right",
+                            AILERON,
+                            80,
+                            -AILERON_SERVO_POS_MAX_DEG,
+                            AILERON_SERVO_POS_MAX_DEG,
+                            -1);
 
-    ControlSurface elevatorLeft(2,
-                                "Elevator Left",
-                                ELEVATOR,
-                                0,
-                                ELEVATOR_SERVO_POS_MIN_DEG,
-                                ELEVATOR_SERVO_POS_MAX_DEG,
-                                1);
+ControlSurface elevator(ELEVATOR_LEFT_PIN,
+                            "Elevator Left",
+                            ELEVATOR,
+                            80,
+                            -ELEVATOR_SERVO_POS_MAX_DEG,
+                            ELEVATOR_SERVO_POS_MAX_DEG,
+                            1);
 
-    ControlSurface elevatorRight(3,
-                                 "Elevator Right",
-                                 ELEVATOR,
-                                 0,
-                                 ELEVATOR_SERVO_POS_MIN_DEG,
-                                 ELEVATOR_SERVO_POS_MAX_DEG,
-                                 -1);
-
-    ControlSurface rudder(4,
-                          "Rudder",
-                          RUDDER,
-                          0,
-                          RUDDER_SERVO_POS_MIN_DEG,
-                          RUDDER_SERVO_POS_MAX_DEG,
-                          1);
-    // clang-format on
-
+void setup() {
+    communicationManager.init();
     flightControlsManager.addControlSurface(aileronLeft)
         .addControlSurface(aileronRight)
-        .addControlSurface(elevatorLeft)
-        .addControlSurface(elevatorRight)
-        .addControlSurface(rudder);
-
-    while (true) {
-        periodic();
-    }
+        .addControlSurface(elevator)
+        .addMotor(motorLeft)
+        .addMotor(motorRight);
+    delay(1000);
+    flightControlsManager.init();
+    delay(500);
+    flightControlsManager.setThrottle(0.0f);
 }
 
-int periodic() {}
+void loop() {
+    communicationManager.periodic();
+    flightControlsManager.periodic();
+    //autopilot.periodic();
+}
