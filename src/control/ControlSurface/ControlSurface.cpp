@@ -47,9 +47,9 @@ void ControlSurface::test() {
 
 void ControlSurface::move(float angle) {
     this->servo.write(constrain(
-        this->angleZeroDegrees + this->DIRECTION_MULTIPLIER * angle + this->angleTrimOffsetDegrees + this->flapAngleDegrees * (this->type == AILERON ? 1 : 0) * FLAPERON_RATIO_CONSTANT,
-        this->angleServoMinDegrees,
-        this->angleServoMaxDegrees));
+        this->angleZeroDegrees + this->DIRECTION_MULTIPLIER * angle + this->angleTrimOffsetDegrees,
+        this->angleZeroDegrees + this->angleServoMinDegrees,
+        this->angleZeroDegrees + this->angleServoMaxDegrees));
 }
 
 int ControlSurface::getDirectionMultiplier() const { return this->DIRECTION_MULTIPLIER; }
@@ -66,7 +66,6 @@ void ControlSurface::init() {
 String ControlSurface::getName() const { return this->name; }
 
 void ControlSurface::changeFlap(float flapAngle) {
-    this->flapAngleDegrees = flapAngle;
     if (this->type == AILERON) {
         this->flapAngleDegrees+=flapAngle;
     }

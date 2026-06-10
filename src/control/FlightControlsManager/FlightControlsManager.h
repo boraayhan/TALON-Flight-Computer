@@ -21,10 +21,12 @@ class FlightControlsManager {
     void resetThrottleTimer();
     unsigned long getLastThrottleUpdateTime() const;
     void enableTOGA(double togaThrottle);
+    void disableTOGA();
     void changeFlap(float flapAngle);
 
   private:
     float throttle;
+    boolean TOGA_MODE = false; 
     unsigned long lastThrottleUpdateTime;
     static const uint8_t MAX_CONTROL_SURFACES = 4;
     static const uint8_t MAX_MOTORS = 2;

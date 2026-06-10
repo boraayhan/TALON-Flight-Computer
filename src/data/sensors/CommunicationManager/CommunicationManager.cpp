@@ -1,9 +1,7 @@
 #include "data/sensors/CommunicationManager/CommunicationManager.h"
 
-CommunicationManager::CommunicationManager(FlightControlsManager *flightControlsManager,
-                                           Autopilot *autopilot)
-    : radio(RADIO_PIN_CE, RADIO_PIN_CSN), flightControlsManager(flightControlsManager),
-      autopilot(autopilot) {}
+CommunicationManager::CommunicationManager(FlightControlsManager *flightControlsManager)
+    : radio(RADIO_PIN_CE, RADIO_PIN_CSN), flightControlsManager(flightControlsManager) {}
 
 void CommunicationManager::init() {
     Serial.begin(115200);
@@ -33,8 +31,12 @@ void CommunicationManager::periodic() {
         switch (payload.id) {
         case (int32_t)CommType::JoystickInput:
             flightControlsManager->twoAxisJoystickToPitchRoll(payload.p1, payload.p2);
-            autopilot->input_jx = payload.p1;
-            autopilot->input_jy = payload.p2;
+            //autopilot->input_jx = payload.p1;
+            //autopilot->input_jy = payload.p2;
+
+            if(abs(payload.p1) > AUTOPILOT_DISENGAGE_THRESHOLD || abs(payload.p2) > AUTOPILOT_DISENGAGE_THRESHOLD) {
+                flightControlsManager->disableTOGA();
+            }       
             break;
 
         case (int32_t)CommType::ThrottleInput:

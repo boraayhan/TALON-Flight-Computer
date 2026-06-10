@@ -114,10 +114,14 @@ unsigned long FlightControlsManager::getLastThrottleUpdateTime() const {
 }
 
 void FlightControlsManager::periodic() {
-    if (millis() - lastThrottleUpdateTime > THROTTLE_TIMEOUT_MS) {
+    if ((millis() - lastThrottleUpdateTime > THROTTLE_TIMEOUT_MS) && !TOGA_MODE) {
         setThrottle(0.0f);
+        this->twoAxisJoystickToPitchRoll(0, -0.3);
     }
     this->updateThrottle();
+    if(TOGA_MODE) {
+      this->twoAxisJoystickToPitchRoll(0, 1);
+    }
 }
 
 void FlightControlsManager::enableTOGA(double togaThrottle) {
@@ -128,7 +132,10 @@ void FlightControlsManager::enableTOGA(double togaThrottle) {
     delay(2000);
     twoAxisJoystickToPitchRoll(0, 1);
     delay(2000);
+    TOGA_MODE = true;
+    twoAxisJoystickToPitchRoll(0, 1);
     setThrottle(togaThrottle);
+    resetThrottleTimer(); // just in case
 }
 
 void FlightControlsManager::changeFlap(float flapAngle) {
@@ -138,4 +145,8 @@ void FlightControlsManager::changeFlap(float flapAngle) {
             surface->changeFlap(flapAngle);
         }
     }
+}
+
+void FlightControlsManager::disableTOGA() {
+    TOGA_MODE = false;
 }

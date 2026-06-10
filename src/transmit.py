@@ -11,6 +11,8 @@ pygame.joystick.init()
 
 THROTTLE_TRANSMIT_INTERVAL = 1
 THROTTLE_STEP = 0.15
+TOGA_THROTTLE = 1.0 # 0.1 for testing, use 1 before flight
+TRIM_STEP = 3
 
 pRoll = 0
 pPitch = 0
@@ -19,8 +21,8 @@ throttle = 0
 plb = False
 prb = False
 
-ptri = False
-px = False
+# ptri = False
+# px = False
 
 phU = False
 phD = False
@@ -40,8 +42,7 @@ def transmit(id: int, p1: float, p2: float):
     payload = struct.pack("<iff", id, p1, p2)
     ser.write(payload)
     print(f"Tx ID: {id}, p1: {p1:.2f}, p2: {p2:.2f}")
-    #time.sleep(0.05)
-
+    time.sleep(0.05)
 
 joystick = pygame.joystick.Joystick(0)
 joystick.init()
@@ -82,23 +83,29 @@ try:
         prb = rb
 
         # Flap
-        x = joystick.get_button(0)
-        tri = joystick.get_button(2)
-        if x and not px:  # Flap down
-            transmit(2, 1, 10) # 10 deg
-        if tri and not ptri: # Flap up
-            transmit(2, 1, -10) # -10 deg
+        # x = joystick.get_button(0)
+        # tri = joystick.get_button(2)
+        # if x and not px:  # Flap down
+        #     transmit(2, 1, 10) # 10 deg
+        # if tri and not ptri: # Flap up
+        #     transmit(2, 1, -10) # -10 deg
+        # px = x
+        # ptri = tri
 
         # Trim (1 deg per arrow)
         hx, hy = joystick.get_hat(0)
         if hy == 1 and not phU:  # Hat up
-            transmit(1, 0, 1)
+            transmit(1, 0, TRIM_STEP)
+            transmit(0, 0, 0)
         if hy == -1 and not phD:  # Hat down
-            transmit(1, 0, -1)
+            transmit(1, 0, -TRIM_STEP)
+            transmit(0, 0, 0)
         if hx == -1 and not phL:  # Hat left
-            transmit(1, -1, 0)
+            transmit(1, -TRIM_STEP, 0)
+            transmit(0, 0, 0)
         if hx == 1 and not phR:  # Hat right
-            transmit(1, 1, 0)
+            transmit(1, TRIM_STEP, 0)
+            transmit(0, 0, 0)
         phU = hy == 1
         phD = hy == -1
         phL = hx == -1
@@ -107,8 +114,13 @@ try:
         # TOGA mode
         optionsButton = joystick.get_button(9)
         if optionsButton and not pOptionsButton:
-            transmit(4, 0.1, 0) # 0.1 for testing, use 1 before flight 
+            transmit(4, TOGA_THROTTLE, 0)
+            throttle = TOGA_THROTTLE
         pOptionsButton = optionsButton
+        
+        if pygame.joystick.get_count() == 0:
+            print("Joystick disconnected!!! Program quit for safety.")
+            break
 
 except Exception as err:
     print(f"Exiting program: {err}")

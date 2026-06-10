@@ -1,11 +1,9 @@
-#include "control/Autopilot/Autopilot.h"
 #include "control/FlightControlsManager/FlightControlsManager.h"
 #include "data/sensors/CommunicationManager/CommunicationManager.h"
-#include "global/GlobalHeader.h"
+  #include "global/GlobalHeader.h"
 
 FlightControlsManager flightControlsManager;
-Autopilot autopilot(&flightControlsManager);
-CommunicationManager communicationManager(&flightControlsManager, &autopilot);
+CommunicationManager communicationManager(&flightControlsManager);
 
 Motor motorLeft(MOTOR_LEFT_PIN);
 Motor motorRight(MOTOR_RIGHT_PIN);
@@ -16,19 +14,19 @@ ControlSurface aileronLeft(AILERON_LEFT_PIN,
                            60,
                            -AILERON_SERVO_POS_MAX_DEG,
                            AILERON_SERVO_POS_MAX_DEG,
-                           +1);
+                           -1);
 ControlSurface aileronRight(AILERON_RIGHT_PIN,
                             "Aileron Right",
                             AILERON,
                             80,
                             -AILERON_SERVO_POS_MAX_DEG,
                             AILERON_SERVO_POS_MAX_DEG,
-                            +1);
+                            -1);
 
 ControlSurface elevator(ELEVATOR_LEFT_PIN,
                             "Elevator Left",
                             ELEVATOR,
-                            50,
+                            80,
                             -ELEVATOR_SERVO_POS_MAX_DEG,
                             ELEVATOR_SERVO_POS_MAX_DEG,
                             1);
@@ -48,5 +46,6 @@ void setup() {
 
 void loop() {
     communicationManager.periodic();
+    flightControlsManager.periodic();
     //autopilot.periodic();
 }
