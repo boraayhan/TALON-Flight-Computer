@@ -3,36 +3,28 @@ import serial
 import time
 import pygame
 
+# CONSTANTS
+THROTTLE_TRANSMIT_INTERVAL_NS = 1
+THROTTLE_STEP = 0.15
+TOGA_THROTTLE = 0.1  # 0.1 for testing, use 1 before flight
+TRIM_STEP_DEG = 3
+
 ser = serial.Serial("/dev/ttyUSB0", 115200, timeout=1)
 
 pygame.init()
 pygame.joystick.init()
 
-
-THROTTLE_TRANSMIT_INTERVAL = 1
-THROTTLE_STEP = 0.15
-TOGA_THROTTLE = 1.0 # 0.1 for testing, use 1 before flight
-TRIM_STEP = 3
-
+# Previous axis states
 pRoll = 0
 pPitch = 0
 throttle = 0
 
-plb = False
-prb = False
-
-# ptri = False
-# px = False
-
-phU = False
-phD = False
-phL = False
-phR = False
-
-pOptionsButton = False
+buttons = {}
+pHat = (0, 0)
 
 tThrottle_ns = 0  # time of last throttle update, ns
 tLb_ns = 0
+
 if pygame.joystick.get_count() == 0:
     print("ERROR: No joystick found.")
     exit()
@@ -43,6 +35,14 @@ def transmit(id: int, p1: float, p2: float):
     ser.write(payload)
     print(f"Tx ID: {id}, p1: {p1:.2f}, p2: {p2:.2f}")
     time.sleep(0.05)
+
+
+def buttonDown(button_id):
+    current = joystick.get_button(button_id)
+    previous = buttons.get(button_id, False)
+    buttons[button_id] = current
+    return current and not previous
+
 
 joystick = pygame.joystick.Joystick(0)
 joystick.init()
@@ -63,61 +63,59 @@ try:
 
         # Throttle
         lb = joystick.get_button(4)
-        rb = joystick.get_button(5)
-        if lb and not plb:
+        if buttonDown(4):
             throttle = max(0.0, throttle - THROTTLE_STEP)
             transmit(3, throttle, 0)
             tLb_ns = tNow_ns
-        if rb and not prb:
+
+        if buttonDown(5):
             throttle = min(1.0, throttle + THROTTLE_STEP)
             transmit(3, throttle, 0)
+
         if lb and (tNow_ns - tLb_ns) > 5e8:
             transmit(3, 0, 0)
             throttle = 0
             tLb_ns = tNow_ns
             tThrottle_ns = tNow_ns
-        if tNow_ns - tThrottle_ns > THROTTLE_TRANSMIT_INTERVAL * 1e9:
+
+        if tNow_ns - tThrottle_ns > THROTTLE_TRANSMIT_INTERVAL_NS * 1e9:
             transmit(3, throttle, 0)
             tThrottle_ns = tNow_ns
-        plb = lb
-        prb = rb
 
         # Flap
-        # x = joystick.get_button(0)
-        # tri = joystick.get_button(2)
-        # if x and not px:  # Flap down
+        # if buttonDown(0):  # Flap down (X)
         #     transmit(2, 1, 10) # 10 deg
-        # if tri and not ptri: # Flap up
+        # if buttonDown(2): # Flap up (Triangle)
         #     transmit(2, 1, -10) # -10 deg
-        # px = x
-        # ptri = tri
 
         # Trim (1 deg per arrow)
         hx, hy = joystick.get_hat(0)
-        if hy == 1 and not phU:  # Hat up
-            transmit(1, 0, TRIM_STEP)
+        phx, phy = pHat
+
+        if hy == 1 and phy != 1:  # Hat up
+            transmit(1, 0, TRIM_STEP_DEG)
             transmit(0, 0, 0)
-        if hy == -1 and not phD:  # Hat down
-            transmit(1, 0, -TRIM_STEP)
+        if hy == -1 and phy != -1:  # Hat down
+            transmit(1, 0, -TRIM_STEP_DEG)
             transmit(0, 0, 0)
-        if hx == -1 and not phL:  # Hat left
-            transmit(1, -TRIM_STEP, 0)
+        if hx == -1 and phx != -1:  # Hat left
+            transmit(1, -TRIM_STEP_DEG, 0)
             transmit(0, 0, 0)
-        if hx == 1 and not phR:  # Hat right
-            transmit(1, TRIM_STEP, 0)
+        if hx == 1 and phx != 1:  # Hat right
+            transmit(1, TRIM_STEP_DEG, 0)
             transmit(0, 0, 0)
-        phU = hy == 1
-        phD = hy == -1
-        phL = hx == -1
-        phR = hx == 1
+
+        pHat = (hx, hy)
 
         # TOGA mode
-        optionsButton = joystick.get_button(9)
-        if optionsButton and not pOptionsButton:
+        if buttonDown(9):
             transmit(4, TOGA_THROTTLE, 0)
             throttle = TOGA_THROTTLE
-        pOptionsButton = optionsButton
-        
+            
+        # Rudder
+        if buttonDown(13):
+            transmit(4, TOGA_THROTTLE, 0)
+
         if pygame.joystick.get_count() == 0:
             print("Joystick disconnected!!! Program quit for safety.")
             break

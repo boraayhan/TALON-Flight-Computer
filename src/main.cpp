@@ -5,8 +5,7 @@
 FlightControlsManager flightControlsManager;
 CommunicationManager communicationManager(&flightControlsManager);
 
-Motor motorLeft(MOTOR_LEFT_PIN);
-Motor motorRight(MOTOR_RIGHT_PIN);
+Motor motor(MOTOR_PIN);
 
 ControlSurface aileronLeft(AILERON_LEFT_PIN,
                            "Aileron Left",
@@ -23,7 +22,7 @@ ControlSurface aileronRight(AILERON_RIGHT_PIN,
                             AILERON_SERVO_POS_MAX_DEG,
                             -1);
 
-ControlSurface elevator(ELEVATOR_LEFT_PIN,
+ControlSurface elevatorLeft(ELEVATOR_LEFT_PIN,
                             "Elevator Left",
                             ELEVATOR,
                             80,
@@ -31,13 +30,23 @@ ControlSurface elevator(ELEVATOR_LEFT_PIN,
                             ELEVATOR_SERVO_POS_MAX_DEG,
                             1);
 
+ControlSurface elevatorRight(ELEVATOR_RIGHT_PIN,
+                            "Elevator Right",
+                            ELEVATOR,
+                            80,
+                            -ELEVATOR_SERVO_POS_MAX_DEG,
+                            ELEVATOR_SERVO_POS_MAX_DEG,
+                            1);
+
+                            
+
 void setup() {
     communicationManager.init();
     flightControlsManager.addControlSurface(aileronLeft)
         .addControlSurface(aileronRight)
-        .addControlSurface(elevator)
-        .addMotor(motorLeft)
-        .addMotor(motorRight);
+        .addControlSurface(elevatorLeft)
+        .addControlSurface(elevatorRight)
+        .addMotor(motor);
     delay(1000);
     flightControlsManager.init();
     delay(500);

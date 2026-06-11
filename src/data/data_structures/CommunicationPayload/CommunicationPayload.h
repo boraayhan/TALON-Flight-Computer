@@ -6,7 +6,8 @@ enum class CommType {
   TrimInput = 1,
   FlapInput = 2,
   ThrottleInput = 3,
-  TOGAInput = 4
+  TOGAInput = 4,
+  RudderInput = 5
 };
 
 struct Payload {
