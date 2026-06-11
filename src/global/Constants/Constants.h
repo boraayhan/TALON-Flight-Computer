@@ -20,8 +20,8 @@ const uint8_t RADIO_PIN_CSN = 8;
 // Spaced out to minimize interference
 const uint8_t AILERON_LEFT_PIN = 24;
 const uint8_t AILERON_RIGHT_PIN = 33;
-const uint8_t ELEVATOR_LEFT_PIN = 38;
-const uint8_t ELEVATOR_RIGHT_PIN = 39; // --!UNUSED!--
+const uint8_t ELEVATOR_PIN = 38;
+const uint8_t RUDDER_PIN = 39;
 
 // Motor Pins
 const uint8_t MOTOR_PIN = 2;

@@ -4,12 +4,18 @@ import time
 import pygame
 
 # CONSTANTS
-THROTTLE_TRANSMIT_INTERVAL_NS = 1
+THROTTLE_TRANSMIT_INTERVAL_S = 300 # 1 default
 THROTTLE_STEP = 0.15
 TOGA_THROTTLE = 0.1  # 0.1 for testing, use 1 before flight
 TRIM_STEP_DEG = 3
 
-ser = serial.Serial("/dev/ttyUSB0", 115200, timeout=1)
+# If your input axes, like mine, don't go quite up to 100%...
+MAX_PITCH_AXIS = 0.70
+MAX_ROLL_AXIS = 0.75
+MAX_YAW_AXIS = 0.75
+
+
+# ser = serial.Serial("/dev/ttyUSB0", 115200, timeout=1)
 
 pygame.init()
 pygame.joystick.init()
@@ -17,6 +23,8 @@ pygame.joystick.init()
 # Previous axis states
 pRoll = 0
 pPitch = 0
+pYaw = 0
+
 throttle = 0
 
 buttons = {}
@@ -32,7 +40,7 @@ if pygame.joystick.get_count() == 0:
 
 def transmit(id: int, p1: float, p2: float):
     payload = struct.pack("<iff", id, p1, p2)
-    ser.write(payload)
+    # ser.write(payload)
     print(f"Tx ID: {id}, p1: {p1:.2f}, p2: {p2:.2f}")
     time.sleep(0.05)
 
@@ -43,6 +51,11 @@ def buttonDown(button_id):
     buttons[button_id] = current
     return current and not previous
 
+def clamp(n, lower, upper):
+    return max(lower, min(n, upper))    
+
+def axify(n):
+    return clamp(n, -1, 1)
 
 joystick = pygame.joystick.Joystick(0)
 joystick.init()
@@ -54,12 +67,17 @@ try:
         tNow_ns = time.time_ns()
 
         # Joystick input
-        roll = joystick.get_axis(0)
-        pitch = joystick.get_axis(1)
-        if abs(roll - pRoll) > 0.05 or abs(pitch - pPitch) > 0.05:
+        roll = axify(joystick.get_axis(2)/MAX_ROLL_AXIS)
+        pitch = axify(joystick.get_axis(1)/MAX_PITCH_AXIS)
+        if abs(roll - pRoll) > 0.05 or abs(pitch - pPitch) > 0.02:
             transmit(0, roll, pitch)
             pRoll = roll
             pPitch = pitch
+        
+        yaw = axify(joystick.get_axis(0))
+        if abs(yaw - pYaw) > 0.05:
+            transmit(5, yaw, 0)
+            pYaw = yaw
 
         # Throttle
         lb = joystick.get_button(4)
@@ -78,7 +96,7 @@ try:
             tLb_ns = tNow_ns
             tThrottle_ns = tNow_ns
 
-        if tNow_ns - tThrottle_ns > THROTTLE_TRANSMIT_INTERVAL_NS * 1e9:
+        if tNow_ns - tThrottle_ns > THROTTLE_TRANSMIT_INTERVAL_S * 1e9:
             transmit(3, throttle, 0)
             tThrottle_ns = tNow_ns
 

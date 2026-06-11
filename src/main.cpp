@@ -22,20 +22,20 @@ ControlSurface aileronRight(AILERON_RIGHT_PIN,
                             AILERON_SERVO_POS_MAX_DEG,
                             -1);
 
-ControlSurface elevatorLeft(ELEVATOR_LEFT_PIN,
-                            "Elevator Left",
+ControlSurface elevator(ELEVATOR_PIN,
+                            "Elevator",
                             ELEVATOR,
                             80,
                             -ELEVATOR_SERVO_POS_MAX_DEG,
                             ELEVATOR_SERVO_POS_MAX_DEG,
                             1);
 
-ControlSurface elevatorRight(ELEVATOR_RIGHT_PIN,
-                            "Elevator Right",
-                            ELEVATOR,
+ControlSurface rudder(RUDDER_PIN,
+                            "Rudder",
+                            RUDDER,
                             80,
-                            -ELEVATOR_SERVO_POS_MAX_DEG,
-                            ELEVATOR_SERVO_POS_MAX_DEG,
+                            -RUDDER_SERVO_POS_MAX_DEG,
+                            RUDDER_SERVO_POS_MAX_DEG,
                             1);
 
                             
@@ -44,8 +44,8 @@ void setup() {
     communicationManager.init();
     flightControlsManager.addControlSurface(aileronLeft)
         .addControlSurface(aileronRight)
-        .addControlSurface(elevatorLeft)
-        .addControlSurface(elevatorRight)
+        .addControlSurface(elevator)
+        .addControlSurface(rudder)
         .addMotor(motor);
     delay(1000);
     flightControlsManager.init();
