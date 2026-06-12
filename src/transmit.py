@@ -4,7 +4,7 @@ import time
 import pygame
 
 # CONSTANTS
-THROTTLE_TRANSMIT_INTERVAL_S = 300 # 1 default
+THROTTLE_TRANSMIT_INTERVAL_S = 1 # 1 default
 THROTTLE_STEP = 0.15
 TOGA_THROTTLE = 0.1  # 0.1 for testing, use 1 before flight
 TRIM_STEP_DEG = 3
@@ -15,7 +15,7 @@ MAX_ROLL_AXIS = 0.75
 MAX_YAW_AXIS = 0.75
 
 
-# ser = serial.Serial("/dev/ttyUSB0", 115200, timeout=1)
+ser = serial.Serial("/dev/ttyUSB0", 115200, timeout=1)
 
 pygame.init()
 pygame.joystick.init()
@@ -40,7 +40,7 @@ if pygame.joystick.get_count() == 0:
 
 def transmit(id: int, p1: float, p2: float):
     payload = struct.pack("<iff", id, p1, p2)
-    # ser.write(payload)
+    ser.write(payload)
     print(f"Tx ID: {id}, p1: {p1:.2f}, p2: {p2:.2f}")
     time.sleep(0.05)
 

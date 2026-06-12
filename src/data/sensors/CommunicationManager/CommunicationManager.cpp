@@ -30,8 +30,8 @@ void CommunicationManager::periodic() {
         switch (payload.id) {
         case (int32_t)CommType::JoystickInput:
             flightControlsManager->twoAxisJoystickToPitchRoll(payload.p1, payload.p2);
-            autopilot->input_jx = payload.p1;
-            autopilot->input_jy = payload.p2;
+            // autopilot->input_jx = payload.p1;
+            // autopilot->input_jy = payload.p2;
             if (abs(payload.p1) > AUTOPILOT_DISENGAGE_THRESHOLD ||
                 abs(payload.p2) > AUTOPILOT_DISENGAGE_THRESHOLD) {
                 flightControlsManager->disableTOGA();
@@ -53,6 +53,10 @@ void CommunicationManager::periodic() {
 
         case (int32_t)CommType::TOGAInput:
             flightControlsManager->enableTOGA(payload.p1);
+            break;
+
+        case (int32_t)CommType::RudderInput:
+        flightControlsManager->rudderPedalToYaw(payload.p1);
             break;
         }
     }

@@ -17,6 +17,7 @@ void FlightControlsManager::twoAxisJoystickToPitchRoll(float xAxis, float yAxis)
 {
     if (abs(xAxis) > 1 || abs(yAxis) > 1)
     {
+        Serial.println(F("2ax overflow!"));
         return;
     }
     for (uint8_t i = 0; i < controlSurfaceCount; i++)

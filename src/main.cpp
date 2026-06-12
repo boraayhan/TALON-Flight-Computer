@@ -1,6 +1,6 @@
 #include "control/FlightControlsManager/FlightControlsManager.h"
 #include "data/sensors/CommunicationManager/CommunicationManager.h"
-  #include "global/GlobalHeader.h"
+#include "global/GlobalHeader.h"
 
 FlightControlsManager flightControlsManager;
 CommunicationManager communicationManager(&flightControlsManager);
