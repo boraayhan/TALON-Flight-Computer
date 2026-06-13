@@ -41,7 +41,7 @@ if pygame.joystick.get_count() == 0:
 def transmit(id: int, p1: float, p2: float):
     payload = struct.pack("<iff", id, p1, p2)
     ser.write(payload)
-    print(f"Tx ID: {id}, p1: {p1:.2f}, p2: {p2:.2f}")
+    #print(f"Tx ID: {id}, p1: {p1:.2f}, p2: {p2:.2f}")
     time.sleep(0.05)
 
 
@@ -55,7 +55,7 @@ def clamp(n, lower, upper):
     return max(lower, min(n, upper))    
 
 def axify(n):
-    return clamp(n, -1, 1)
+    return clamp(n, -0.995, 0.995)
 
 joystick = pygame.joystick.Joystick(0)
 joystick.init()
@@ -69,6 +69,8 @@ try:
         # Joystick input
         roll = axify(joystick.get_axis(2)/MAX_ROLL_AXIS)
         pitch = axify(joystick.get_axis(1)/MAX_PITCH_AXIS)
+        raw_roll = joystick.get_axis(2)
+        print(f"raw={raw_roll:.3f} norm={roll:.3f}")
         if abs(roll - pRoll) > 0.05 or abs(pitch - pPitch) > 0.02:
             transmit(0, roll, pitch)
             pRoll = roll

@@ -24,7 +24,7 @@ void CommunicationManager::init() {
 void CommunicationManager::periodic() {
     Payload payload;
     uint8_t pipe;
-    if (this->radio.available(&pipe)) {
+    while (this->radio.available(&pipe)) {
         radio.read(&payload, sizeof(Payload));
         Serial.print(payload.id);
         switch (payload.id) {
