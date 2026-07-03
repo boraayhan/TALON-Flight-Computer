@@ -1,25 +1,31 @@
 #pragma once
 #include "control/Autopilot/DataHeader.h"
-
-enum AutopilotState {
-    OFF = 0,
-    CIRCLE,
-    HOLD,
-    AUTOLAND, // RTB for now
-    AUTOTRIM,
-    TOGA
-};
-
-struct AutopilotSetting {
-    AutopilotState state;
-};
+#include "global/GlobalHeader.h"
 
 class Autopilot {
   public:
-    Autopilot();
-    void disable();
+    Autopilot(const FlightState &flightState);
     void periodic();
+    void setAutopilotSetting(const AutopilotSetting &s);
+    bool isEnabled();
+    bool hasNewFlightCommand();
+    const FlightCommand &getLatestFlightCommand();
 
-    // Autopilot
-    // TODO: Figure out control priority method, i.e. whethr to use roll pitch yaw or targets + dubins path
+  private:
+    const FlightState &flightState;
+
+    AutopilotSetting autopilotSetting;
+    FlightCommand latestFlightCommand;
+
+    const FlightCommand &computeTOGAFlightCommand();
+    bool hasNewFlightCommand;
 };
+
+// AUTOPILOT STATES:
+// OFF = 0,
+// CIRCLE,
+// HOLD,
+// RTB,
+// TOGA,
+// AUTOTRIM, // Unimplemented at alpha release
+// AUTOLAND, // Unimplemented at alpha release

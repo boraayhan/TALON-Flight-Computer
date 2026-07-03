@@ -1,11 +1,10 @@
-#include "data/sensors/CommunicationManager/CommunicationManager.h"
+#include "communication/CommunicationManager.h"
 
 CommunicationManager::CommunicationManager() : radio(RADIO_PIN_CE, RADIO_PIN_CSN) {}
 
 void CommunicationManager::init() {
     Serial.begin(115200);
     delay(500);
-    Serial.println("Serial initialized.");
     const uint8_t address[][6] = {"1Node", "2Node"};
     if (!radio.begin()) {
         Serial.println(F("Error: Radio hardware failure!"));
@@ -30,20 +29,20 @@ void CommunicationManager::periodic() {
         switch (payload.id) {
         case (int32_t)CommType::FlightCommandInput: {
             FlightCommand pilotCmd = {payload.p1, payload.p2, payload.p3, payload.p4};
-            latestFlightCommand = pilotCmd;
-            newFlightCommandAvailable = true;
+            _latestFlightCommand = pilotCmd;
+            hasNewFlightCommand_ = true;
             break;
         }
         case (int32_t)CommType::TrimInput: {
             TrimCommand trimCmd = {payload.p1, payload.p2, payload.p3};
-            latestTrimCommand = trimCmd;
-            newTrimAvailable = true;
+            _latestTrimCommand = trimCmd;
+            hasNewTrimCommand_ = true;
             break;
         }
         case (int32_t)CommType::AutopilotSettingInput: {
             AutopilotSetting autopilotSetting = {};
-            latestAutopilotSetting = autopilotSetting;
-            newAutopilotSettingAvailable = true;
+            _latestAutopilotSetting = autopilotSetting;
+            hasNewAutopilotSetting_ = true;
             break;
         }
         }
@@ -51,16 +50,20 @@ void CommunicationManager::periodic() {
 }
 
 FlightCommand CommunicationManager::getLatestFlightCommand() {
-    newFlightCommandAvailable = false;
-    return latestFlightCommand;
+    hasNewFlightCommand_ = false;
+    return _latestFlightCommand;
 }
 
 TrimCommand CommunicationManager::getLatestTrimCommand() {
-    newTrimAvailable = false;
-    return latestTrimCommand;
+    hasNewTrimCommand_ = false;
+    return _latestTrimCommand;
 }
 
 AutopilotSetting CommunicationManager::getLatestAutopilotSetting() {
-    newAutopilotSettingAvailable = false;
-    return latestAutopilotSetting;
+    hasNewAutopilotSetting_ = false;
+    return _latestAutopilotSetting;
 }
+
+bool CommunicationManager::hasNewFlightCommand() { return hasNewFlightCommand_; }
+bool CommunicationManager::hasNewTrimCommand() { return hasNewTrimCommand_; }
+bool CommunicationManager::hasNewAutopilotSetting() { return hasNewAutopilotSetting_; }

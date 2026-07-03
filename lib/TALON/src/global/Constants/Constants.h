@@ -1,10 +1,11 @@
 #pragma once
+#include "global/DataStructs.h"
 #include <Arduino.h>
 
 // Flight Modes
 const float FLAPERON_RATIO_CONSTANT = 0.3;       // 0 for flaperon mode off, 0.3 recommended
-const float AUTOPILOT_DISENGAGE_THRESHOLD = 0.3; // 0 to 1, how "hard" input is needed to disengage AP. > 0.5 is dangerous.
-const float THROTTLE_TIMEOUT_MS = 1500;          // = 1.5x transmit rate
+const float AUTOPILOT_DISENGAGE_THRESHOLD = 0.4; // 0 to 1, how "hard" input disengages AP. > 0.7 is dangerous.
+constexpr FlightCommand TOGA_FLIGHT_COMMAND{0, 0.5, 0, 1.0}; // FlightCommand with 50% pitch, 100% throttle for TOGA mode
 
 // Authority Limiters on Servos (not control surfaces)
 // Represents max displacement from zero-level for a symmetric control surface
@@ -25,3 +26,6 @@ const uint8_t RUDDER_PIN = 39;
 
 // Motor Pins
 const uint8_t MOTOR_PIN = 2;
+
+// Misc
+const float g = 9.80665;
