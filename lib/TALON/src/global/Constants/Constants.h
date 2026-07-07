@@ -5,13 +5,22 @@
 // Flight Modes
 const float FLAPERON_RATIO_CONSTANT = 0.3;       // 0 for flaperon mode off, 0.3 recommended
 const float AUTOPILOT_DISENGAGE_THRESHOLD = 0.4; // 0 to 1, how "hard" input disengages AP. > 0.7 is dangerous.
-constexpr FlightCommand TOGA_FLIGHT_COMMAND{0, 0.5, 0, 1.0}; // FlightCommand with 50% pitch, 100% throttle for TOGA mode
+constexpr FlightCommand TOGA_FLIGHT_COMMAND{0,
+                                            0.5,
+                                            0,
+                                            1.0}; // FlightCommand with 50% pitch, 100% throttle for TOGA mode
 
 // Authority Limiters on Servos (not control surfaces)
 // Represents max displacement from zero-level for a symmetric control surface
 const float AILERON_SERVO_POS_MAX_DEG = 55;
 const float ELEVATOR_SERVO_POS_MAX_DEG = 50;
 const float RUDDER_SERVO_POS_MAX_DEG = 70;
+
+// PID Settings
+const pidSetting AP_HORIZONTAL_ACCELERATION = pidSetting{1, 0.1, 0.5}; // FIXME: Tune
+const pidSetting AP_VERTICAL_ACCELERATION = pidSetting{1, 0.1, 0.5};   // FIXME: Tune
+const pidSetting AP_HORIZONTAL_DEFLECTION = pidSetting{1, 0.1, 0.5};   // FIXME: Tune
+const pidSetting AP_VERTICAL_DEFLECTION = pidSetting{1, 0.1, 0.5};     // FIXME: Tune
 
 // Radio Pins
 const uint8_t RADIO_PIN_CE = 7;

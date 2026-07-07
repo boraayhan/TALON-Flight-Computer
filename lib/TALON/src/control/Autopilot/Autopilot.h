@@ -1,5 +1,6 @@
 #pragma once
 #include "control/Autopilot/DataHeader.h"
+#include "control/Autopilot/DubinsPath.h"
 #include "global/GlobalHeader.h"
 
 class Autopilot {
@@ -9,16 +10,29 @@ class Autopilot {
     void setAutopilotSetting(const AutopilotSetting &s);
     bool isEnabled();
     bool hasNewFlightCommand();
-    const FlightCommand &getLatestFlightCommand();
+    const FlightCommand &getLatestFlightCommand() const;
 
   private:
     const FlightState &flightState;
+    DubinsPath targetPath;
 
     AutopilotSetting autopilotSetting;
     FlightCommand latestFlightCommand;
 
     const FlightCommand &computeTOGAFlightCommand();
-    bool hasNewFlightCommand;
+    bool hasNewFlightCommand_;
+
+    /**
+     * @returns: Vector3 of form {0, horizontal acceleration, vertical acceleration}, per "Local" convention in /README.md
+     */
+    const Vector3 computeLocalTargetAccelerations();
+    const FlightCommand localTargetAccelerationsToFlightCommand(float xAccel, float yAccel);
+
+    pid horizontalAccelerationController;
+    pid verticalAccelerationController;
+
+    pid horizontalDeflectionController;
+    pid verticalDeflectionController;
 };
 
 // AUTOPILOT STATES:

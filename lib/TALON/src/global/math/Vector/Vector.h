@@ -7,6 +7,7 @@ struct Vector3 {
     float y; // +Y: North, -Y: South when used to store position
     float z; // +Z: Increasing altitude, -Z: Decreasing altitude. Z = 0 is "ground level + landing gear" height.
     float magnitude();
+    float lengthXY(); // "Map Length", independent from Z component
 };
 
 Vector3 operator+(const Vector3 &a, const Vector3 &b); // Evaluate a+b

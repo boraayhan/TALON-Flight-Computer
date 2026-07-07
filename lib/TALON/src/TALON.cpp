@@ -13,12 +13,12 @@ void TALON::periodic() {
     if (communicationManager.hasNewAutopilotSetting()) {
         autopilot.setAutopilotSetting(communicationManager.getLatestAutopilotSetting());
     }
+
     if (autopilot.isEnabled() && autopilot.hasNewFlightCommand()) {
         flightControlsManager.applyFlightCommand(autopilot.getLatestFlightCommand());
     }
-    if (communicationManager.hasNewFlightCommand() && !autopilot.isEnabled()) {
+    else if (!autopilot.isEnabled() && communicationManager.hasNewFlightCommand()) {
         flightControlsManager.applyFlightCommand(communicationManager.getLatestFlightCommand());
-    }
     }
 }
 

@@ -13,7 +13,6 @@ class ControlSurface {
   private:
     int GPIO_PIN;
     ControlSurfaceType type; // Aileron, Elevator, or Rudder
-    String name;             // Ex: Aileron 2, Right Elevator, etc
     float angleZeroDeg;
     float angleTrimOffsetDeg;
     float angleServoMinDeg; // Minimum angle relative to zeroAngleDeg for servo (not control surface)
@@ -25,7 +24,6 @@ class ControlSurface {
   public:
     void init();
     ControlSurface(int GPIO_PIN,
-                   String name,
                    ControlSurfaceType type,
                    float angleZeroDeg,
                    float angleServoMinDeg,
@@ -36,7 +34,6 @@ class ControlSurface {
     void move(float angle);       // Sets control surface to angle with respect to zero
     void changeTrim(float angle); // Changes trim by angle
     int getDirectionMultiplier() const;
-    String getName() const;
     ControlSurfaceType getType() const;
     void setFlap(float flapAngle);
 };

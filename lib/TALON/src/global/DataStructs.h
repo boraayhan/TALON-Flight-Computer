@@ -30,8 +30,15 @@ struct AutopilotSetting {
 };
 
 struct FlightState {
-    Vector3 velocity; // Meters per second
     Vector3 position; // Meters, relative to starting position
+    Vector3 velocity; // Meters per second
+    Vector3 acceleration; // Meters per (second squared)
     FlightCommand latestFlightCommand;
     TrimCommand trim;
+};
+
+struct pidSetting {
+    float kP;
+    float kI;
+    float kD;
 };

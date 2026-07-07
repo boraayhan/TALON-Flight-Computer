@@ -1,11 +1,11 @@
 #pragma once
+#include "global/Constants/Constants.h"
 
 // WARNING: NOT FINISHED!
 class pid {
   public:
-    pid();
     float compute(float input, float target);
-    pid(float KP, float KI, float KD);
+    pid(pidSetting s);
 
   private:
     float kP;

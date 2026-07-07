@@ -1,7 +1,6 @@
 #include "control/ControlSurface/ControlSurface.h"
 
 ControlSurface::ControlSurface(int GPIO_PIN,
-                               String name,
                                ControlSurfaceType type,
                                float angleZeroDeg,
                                float angleServoMinDeg,
@@ -14,7 +13,6 @@ ControlSurface::ControlSurface(int GPIO_PIN,
     this->angleServoMaxDeg = angleServoMaxDeg;
     this->DIRECTION_MULTIPLIER = DIRECTION_MULTIPLIER;
     this->type = type;
-    this->name = name;
 }
 
 // FIXME: Potential annoying edge case for certain min/max combos, maybe, idk
@@ -52,7 +50,6 @@ void ControlSurface::init() {
     this->servo.write(this->angleZeroDeg);
 }
 
-String ControlSurface::getName() const { return this->name; }
 
 void ControlSurface::setFlap(float flapAngle) {
     if (this->type == AILERON || this->type == FLAP) {

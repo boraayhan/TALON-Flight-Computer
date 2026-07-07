@@ -14,11 +14,15 @@ The **T**rim, **A**uto **L**and, **O**dometry, and **N**avigation flight compute
 ## Project-Wide Conventions
 These conventions are followed throughout the project, unless otherwise specified.
 #### Units
-* All units are in SI units (meters, seconds, and kilograms)
+* All units are in SI units (meters, seconds, and kilograms) and their respective derived units (e.g. m/(s^2) for acceleration)
 #### Directions and Coordinates
 * All units of heading/bearing are expressed in degrees, represented from 0 to 360 degrees clockwise. 0 degrees represents "North", and 90 degrees represents "East".
 * For circular paths, a "LEFT" circle represents a counterclockwise  path, and a "RIGHT" circle represents a clockwise path.
-* All coordinates and flight positions are Vector3 objects of the following form:
+* All coordinates and flight positions are Vector3 objects of the following form, unless marked "Local":
   * x: East-West displacement, in meters, from the calibrated "zero" position, with +X being "East"
   * y: North-South displacement, in meters, from the calibrated "zero" position, with +Y being "North"
   * z: Altitude, in meters, relative to the calibrated "zero" position, with +Z representing an increase in altitude.
+* A Vector3 designated "local" is relative to aircraft's velocity vector with the following conventions:
+  * +x: Horizontal axis spanning from aircraft's tail to nose
+  * +y: Horizontal axis spanning from left (port) wingtip to right (starboard) wingtip
+  * +z: Horizontal axis spanning from aircraft's **belly to its celing** ("up", unlike the convention specified in MIL-STD-810G, fig. 513.7-1, and the right-hand rule, which describe +z as pointing towards ground at level flight)

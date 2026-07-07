@@ -31,6 +31,7 @@ Vector3 unit(const Vector3 &v) {
 }
 
 float Vector3::magnitude() { return sqrt(x * x + y * y + z * z); }
+float Vector3::lengthXY() { return sqrt(x * x + y * y); }
 
 float radToDeg(float r) { return r * 180 / M_PI; }
 
