@@ -1,6 +1,6 @@
 #pragma once
 #include "control/Autopilot/DataHeader.h"
-#include "control/Autopilot/DubinsPath.h"
+#include "control/Autopilot/Pathfinder.h"
 #include "global/GlobalHeader.h"
 
 class Autopilot {
@@ -14,7 +14,7 @@ class Autopilot {
 
   private:
     const FlightState &flightState;
-    DubinsPath targetPath;
+    DubinsPathWrapper targetPath;
 
     AutopilotSetting autopilotSetting;
     FlightCommand latestFlightCommand;

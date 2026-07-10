@@ -2,7 +2,7 @@
 
 Autopilot::Autopilot(const FlightState &flightState)
     : flightState(flightState), targetPath(), horizontalAccelerationController(AP_HORIZONTAL_ACCELERATION),
-      verticalAccelerationController(AP_HORIZONTAL_ACCELERATION),
+      verticalAccelerationController(AP_VERTICAL_ACCELERATION),
       horizontalDeflectionController(AP_HORIZONTAL_DEFLECTION), verticalDeflectionController(AP_VERTICAL_DEFLECTION) {}
 
 void Autopilot::periodic() {
@@ -42,10 +42,10 @@ const FlightCommand &Autopilot::getLatestFlightCommand() const { return latestFl
 
 // TODO: Replace me with L1 navigation ("A New Nonlinear Guidance Logic for Trajectory Tracking" (MIT, 2004) by Park et al.) for improved performance
 const Vector3 Autopilot::computeLocalTargetAccelerations() {
-    Vector3 error = targetPath.getError(flightState.position);
+    GuidanceError error = GuidanceError{0,0,0}; // targetPath.getError(flightState.position);
     return Vector3{0,
-                   horizontalAccelerationController.compute(error.y, 0),
-                   verticalAccelerationController.compute(error.z, 0)};
+                   horizontalAccelerationController.compute(error.altitudeError, 0),
+                   verticalAccelerationController.compute(error.crossTrackError, 0)};
 }
 
 const FlightCommand Autopilot::localTargetAccelerationsToFlightCommand(float targetAccelX, float targetAccelY) {
