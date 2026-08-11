@@ -1,6 +1,7 @@
 # TALON Flight Computer (Under Development)
 The **T**rim, **A**uto **L**and, **O**dometry, and **N**avigation flight computer is a comprehensive and customizable low-cost flight software package designed to be integrated into Class 1 Unmanned Aerial Vehicles (UAVs).
 ## Features
+![System Architecture Diagram](/SystemDiagram.svg)
 ### Current Core Features
 * 3-axis (pitch, roll, yaw) flight control surface actuation & throttle control from remote joystick inputs.
 * 3-axis flight control surface (aileron, elevator, rudder) trim
